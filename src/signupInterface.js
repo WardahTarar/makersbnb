@@ -3,7 +3,7 @@ $(document).ready(function() {
 
   var user = new User();
 
-  $("#signUp").mousedown(function() {
+  $("#submit").click(function() {
     let firstName = $("#firstName").val();
     let lastName = $("#lastName").val();
     let email = $("#email").val();
@@ -11,8 +11,8 @@ $(document).ready(function() {
 
     let newUser = user.createUser(firstName, lastName, email, password);
 
-    console.log("2");
-    console.log(newUser);
-    $.post("#", newUser); //A hash
+    $.post("http://localhost:9292/users/new", newUser, function() {
+      window.location.replace("/");
+    });
   });
 });
