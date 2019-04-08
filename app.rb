@@ -7,7 +7,13 @@ require 'sinatra/base'
 class Makersbnb < Sinatra::Base;
 
 
+get '/users/new' do
+  erb :signup
+end
 
+post '/users/new' do
+  'Makers BnB'
+end
 
 
 
