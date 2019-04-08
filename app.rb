@@ -11,7 +11,7 @@ class Makersbnb < Sinatra::Base
   enable :sessions
 
   get '/' do
-    "Hello #{session[:user]}"
+    @user = session[:user]
     erb :index
   end
 
