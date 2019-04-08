@@ -1,12 +1,15 @@
-## Sign up page
+## Makersbnb
+
+## Spec
+
+Any signed-up user can list a new space.
 
 ## User story
 
-As a prospective host
-So that I can use the site
-I want to be able to sign up for an account
+1a) As a user so that I can list a new space, I want be able to sign up
 
-## Approach
+1b) As a signed up user, so that I can list my place, I want to be able to create listing
 
-- Build front end in JavaScript
-- Set up testing infrastructure in Jasmine
+## additional
+
+requests
