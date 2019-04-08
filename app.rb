@@ -1,8 +1,12 @@
 require 'sinatra/base'
+<<<<<<< HEAD
 require 'sinatra/json'
 # current_dir = Dir.pwd
+=======
+current_dir = Dir.pwd
+>>>>>>> origin/master
 
-# Dir["#{current_dir}/models/*.rb"].each { |file| require file }
+Dir["#{current_dir}/models/*.rb"].each { |file| require file }
 
 class Makersbnb < Sinatra::Base
   set :root, File.dirname(__FILE__)
