@@ -12,7 +12,7 @@ $(document).ready(function() {
     let newUser = user.createUser(firstName, lastName, email, password);
 
     $.post("http://localhost:9292/users/new", newUser, function() {
-      window.location.replace("/");
+      window.location.replace("/index");
     });
   });
 });

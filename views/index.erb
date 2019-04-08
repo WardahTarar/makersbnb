@@ -1,2 +1,9 @@
-<%= %"Hello" %>
+
+
+<% if @user %>
+<%= "Hello #{@user.first_name}" %>
+<a href="#">Sign out</a>
+<% else %>
+<%= "Welcome to MakersBNB"%>
 <a href="/users/new">Sign up</a>
+<% end%>
