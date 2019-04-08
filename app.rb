@@ -1,7 +1,7 @@
 require 'sinatra/base'
-# current_dir = Dir.pwd
+current_dir = Dir.pwd
 
-# Dir["#{current_dir}/models/*.rb"].each { |file| require file }
+Dir["#{current_dir}/models/*.rb"].each { |file| require file }
 
 
 class Makersbnb < Sinatra::Base;
