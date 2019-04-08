@@ -1,10 +1,31 @@
 
-<% if @user %>
-<h2 id="welcome-message">
- <%="Welcome #{@user.first_name}"  %>
-<a href="#">Sign out</a>
-<% else %>
-<%= "Welcome to MakersBNB"%>
-<a href="/users/new">Sign up</a>
-<% end%>
-</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <head>
+    <%# <link rel="stylesheet" href="/public/css/style.css" /> %>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/src/signoutInterface.js"></script>
+    <title>Makers BnB</title>
+  </head>
+</head>
+<body>
+
+  <% if @user %>
+
+    <h2 id="welcome-message-user">
+    <%= "Welcome #{@user.first_name}" %>
+    <button id="signout" name = "signout" class="button button-block">Sign out</button>
+    </h2>
+
+    <% else %>
+
+    <h2 id="welcome-general">
+    <%= "Welcome to MakersBNB"%>
+    <a href="/users/new">Sign up</a>
+    </h2>
+
+  <% end%>
+</body>
+</html>
+

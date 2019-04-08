@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sinatra/base'
 require 'sinatra/activerecord'
 require 'bcrypt'
@@ -41,7 +43,12 @@ class Makersbnb < Sinatra::Base
   end
 
   get '/users/show/:id' do
-    p User.find(params[:id])
+    # p User.find(params[:id])
+  end
+
+  post '/sessions/destroy' do
+    session.clear
+    redirect '/index'
   end
 
   run! if app_file == $PROGRAM_NAME

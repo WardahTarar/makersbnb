@@ -1,5 +1,5 @@
 module.exports = {
-  "User can sign up": function(browser) {
+  "User can sign out": function(browser) {
     browser
       .url("localhost:9292/users/new")
       .setValue("input[name=firstName]", "John")
@@ -9,6 +9,9 @@ module.exports = {
       .click("#submit")
       .waitForElementVisible("#welcome-message-user")
       .assert.containsText("#welcome-message-user", "Welcome John")
+      .click("#signout")
+      .waitForElementVisible("#welcome-general")
+      .assert.containsText("body", "Welcome to MakersBNB")
       .end();
   }
 };
