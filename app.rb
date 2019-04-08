@@ -1,21 +1,19 @@
 require 'sinatra/base'
-<<<<<<< HEAD
-require 'sinatra/json'
+require 'sinatra/activerecord'
+require 'bcrypt'
 # current_dir = Dir.pwd
-=======
 current_dir = Dir.pwd
->>>>>>> origin/master
 
 Dir["#{current_dir}/models/*.rb"].each { |file| require file }
 
 class Makersbnb < Sinatra::Base
+  include BCrypt
   set :root, File.dirname(__FILE__)
   set :public_folder, File.dirname(__FILE__)
 
   enable :sessions
 
   get '/' do
-    @user = session[:user]
     erb :index
   end
 
@@ -24,8 +22,13 @@ class Makersbnb < Sinatra::Base
   end
 
   post '/users/new' do
-    session[:user] = params[:firstName]
+    encrypted_password = BCrypt::Password.create(params[:password])
+    User.create(first_name: params[:firstName], last_name: params[:lastName], email: params[:email], password_digest: encrypted_password)
     redirect '/'
+  end
+
+  get '/users/show/:id' do
+    p User.find(params[:id])
   end
 
   run! if app_file == $PROGRAM_NAME
