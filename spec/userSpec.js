@@ -1,5 +1,5 @@
 
-describe('user', function(){
+describe('user js file', function(){
 
   var user;
 
@@ -7,7 +7,7 @@ describe('user', function(){
     user = new User();
   })
 
-  it('creates a user', function(){
+  it('creates a user object', function(){
 
     expect(user.createUser(
       'James',

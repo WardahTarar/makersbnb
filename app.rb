@@ -14,6 +14,7 @@ class Makersbnb < Sinatra::Base
   enable :sessions
 
   get '/' do
+    # @user = User.find(session[:id])
     erb :index
   end
 
@@ -23,8 +24,9 @@ class Makersbnb < Sinatra::Base
 
   post '/users/new' do
     encrypted_password = BCrypt::Password.create(params[:password])
-    User.create(first_name: params[:firstName], last_name: params[:lastName], email: params[:email], password_digest: encrypted_password)
-    redirect '/'
+    # session[:id] = 
+    user = User.create(first_name: params[:firstName], last_name: params[:lastName], email: params[:email], password_digest: encrypted_password)
+    # session[:id] = user[:id]
   end
 
   get '/users/show/:id' do
