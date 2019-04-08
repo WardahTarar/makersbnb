@@ -1,6 +1,4 @@
 $(document).ready(function() {
-  console.log("1");
-
   var user = new User();
 
   $("#submit").click(function() {

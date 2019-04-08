@@ -1,9 +1,10 @@
 
-
 <% if @user %>
-<%= "Hello #{@user.first_name}" %>
+<h2 id="welcome-message">
+ <%="Welcome #{@user.first_name}"  %>
 <a href="#">Sign out</a>
 <% else %>
 <%= "Welcome to MakersBNB"%>
 <a href="/users/new">Sign up</a>
 <% end%>
+</h2>

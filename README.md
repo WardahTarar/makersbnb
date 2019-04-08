@@ -13,3 +13,14 @@ Any signed-up user can list a new space.
 ## additional
 
 requests
+
+## Testing JavaScript
+
+- We used NighWatch Js testing framework
+
+### Steps to install
+
+1. install node.js
+2. install nigthwatch: `npm install nightwatch`
+3. install webdriver service (chrome in our case): `npm install chromedriver --save-dev`
+4. run nightwatch on your js spec file: `node_modules/.bin/nightwatch spec/signupSpec.js`
