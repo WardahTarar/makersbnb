@@ -64,6 +64,7 @@ class Makersbnb < Sinatra::Base
   end
 
   post '/listings/new' do
+    p '------'
     listing = Listing.create(
       name: params[:name],
       location: params[:location],

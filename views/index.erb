@@ -22,6 +22,25 @@
     </h2>
   <% end%>
 
+<br>
+<script>
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log(start.format('YYYY-MM-DD'))
+    console.log(end.format('YYYY-MM-DD'))
+  });
+});
+</script>
+ <div class="form">
+<h3>Book a space</h3>
+ <div class="intend-dates">
+  <p>Your travel dates:</p>
+  <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+</div>
+</div>
+<br>
 
   <% @listings.each do |listing| %>
   <ul>
@@ -37,3 +56,4 @@
   <%end%>
   </body>
 </html>
+
