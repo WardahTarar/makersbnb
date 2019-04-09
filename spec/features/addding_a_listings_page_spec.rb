@@ -1,3 +1,4 @@
+require 'spec_helper'
 feature 'Listings' do
   scenario 'user adds a listing' do
     visit('/listings/new')
