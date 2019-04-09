@@ -46,6 +46,17 @@ class Makersbnb < Sinatra::Base
     # p User.find(params[:id])
   end
 
+  get '/sessions/new/login' do
+    erb :login
+  end
+
+  post '/sessions' do
+    user = User.find_by(email: params[:email]) # email must be unique
+    return unless BCrypt::Password.new(user[:password_digest]) == params[:password]
+    session[:id] = user[:id]
+    redirect '/'
+  end
+
   post '/sessions/destroy' do
     session.clear
     redirect '/index'

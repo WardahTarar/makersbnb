@@ -1,6 +1,12 @@
 $(document).ready(function() {
   var user = new User();
 
+  $("#signup").click(function() {
+    $.get("http://localhost:9292/users/new", function() {
+      window.location.replace("/users/new");
+    });
+  });
+
   $("#submit").click(function() {
     let firstName = $("#firstName").val();
     let lastName = $("#lastName").val();
