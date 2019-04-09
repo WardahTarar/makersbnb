@@ -94,7 +94,13 @@ Until a user has confirmed a booking request, that space can still be booked for
 
 ### Steps to install
 
+Database:
+1. rake db:create
+2. rake db:migrate
+
+Testing:
 1. install node.js
 2. install nigthwatch: `npm install nightwatch`
 3. install webdriver service (chrome in our case): `npm install chromedriver --save-dev`
 4. run nightwatch on your js spec file: `node_modules/.bin/nightwatch spec/signupSpec.js`
+5. `node_modules/.bin/nightwatch spec/requestInterfaceSpec.js`
