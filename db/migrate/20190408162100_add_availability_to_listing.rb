@@ -4,10 +4,7 @@ class AddAvailabilityToListing < ActiveRecord::Migration[5.2]
     add_column :listings, :available_start_date, :datetime
     add_column :listings, :available_end_date, :datetime
 
-      
+
 
   end
-
-
-
-end 
+end

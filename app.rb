@@ -2,6 +2,7 @@
 
 require 'sinatra/base'
 require 'sinatra/activerecord'
+require './fakeDataGenerator'
 require 'bcrypt'
 # current_dir = Dir.pwd
 current_dir = Dir.pwd
@@ -16,7 +17,7 @@ class Makersbnb < Sinatra::Base
   enable :sessions
 
   get '/' do
-   
+    createFakeListing
     redirect '/index'
   end
 
@@ -31,6 +32,7 @@ class Makersbnb < Sinatra::Base
 
   get '/listings' do 
     @listings = Listing.all
+    p @listings
     erb(:'listings/index')
     # listing dates, use dropdown
   end 
@@ -46,10 +48,7 @@ class Makersbnb < Sinatra::Base
     )
 
     p "here"
-    Listing.create(name: "A", location: "B",city:"C",price_per_night:"232",user_id:user[:id])
-    Listing.create(name: "A", location: "B",city:"C",price_per_night:"232",user_id:user[:id])
-    Listing.create(name: "A", location: "B",city:"C",price_per_night:"232",user_id:user[:id])
-
+   
     session[:id] = user[:id]
     redirect '/index'
   end
@@ -61,6 +60,24 @@ class Makersbnb < Sinatra::Base
 
   get '/sessions/new/login' do
     erb :login
+  end
+
+  get('/listings/new') do
+    erb :'/listings/new'
+  end
+
+  post('/listings/all') do
+    listing = Listing.create(
+      name: params[:name],
+      location: params[:location],
+      startDate: params[:startDate],
+      endDate: params[:endDate],
+      price: params[:price]
+    )
+
+    session[:id] = listing[:id]
+
+    redirect '/index'
   end
 
   get '/listings/all' do
