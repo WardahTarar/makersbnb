@@ -59,8 +59,7 @@ end
   end
 
   get '/listings/all' do
-    listing = Listing.find_by(id: 1)
-    p listing
+    @listings = Listing.find_by(id: 1)
 
     erb :'/listings/all'
   end

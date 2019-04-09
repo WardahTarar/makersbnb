@@ -32,11 +32,9 @@ $(function() {
   </div>
 
 <ul>
-  <% @listings.each do |x| %>
     <li> 
-    <%= x.name %>
+    <%= @listings.name %>
     </li>
-  <% end %>
 </ul>
 
 <form action="http://google.com">
