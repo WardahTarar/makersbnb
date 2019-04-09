@@ -13,8 +13,8 @@ $(document).ready(function() {
 
     console.log(newListing);
 
-    $.post("http://localhost:9292/listings/new", newListing), function(){
+    $.post("http://localhost:9292/listings/new", newListing, function(){
       window.location.replace("/index")
-    };
+    });
   });
 });
