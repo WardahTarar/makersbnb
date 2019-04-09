@@ -1,40 +1,30 @@
 describe("Listings", function(){
-  var listings;
+  var listing;
 
-  it('creates a listing', function(){
-    listings = new Listings();
-    expect(listings).toBe(listings);
-    var myListing;
-    expect(listings.create(myListing)).toEqual(myListing);
-    expect(listings.list.last).toEqual(myListing);
+  beforeEach(function(){
+    listing = new Listing("Malfoy Manor", '15.04.2019', '15.05.2019', 1000, 'London');
   });
 
-  it('creates 2 listings', function(){
-    listings = new Listings();
-    expect(listings).toBe(listings);
-    var myListing;
-    var myListing2;
-    expect(listings.create(myListing)).toEqual(myListing);
-    expect(listings.create(myListing2)).toEqual(myListing2);
-    expect(listings.list.last).toEqual(myListing2);
+  it('has a name', function(){
+    expect(listing.name()).toEqual("Malfoy Manor")
   });
 
-  it('shows all listings', function(){
-    listings = new Listings();
-    var myListing;
-    var myListing2;
-    listings.create(myListing);
-    listings.create(myListing2);
-    expect(listings.all()).toEqual([myListing, myListing2])
+  it('has a start date and end date', function(){
+    expect(listing.start()).toEqual('15.04.2019');
+    expect(listing.end()).toEqual('15.05.2019');
   });
 
-  it('deletes a listing', function(){
-    listings = new Listings();
-    var myListing;
-    var myListing2;
-    listings.create(myListing);
-    listings.create(myListing2);
-    listings.delete(myListing2);
-    expect(listings.all()).toEqual([myListing]);
+  it('the name can be updated', function(){
+    listing.updateName('Grimmauld Place')
+    expect(listing.name()).toEqual('Grimmauld Place')
+  });
+
+  it('price per night can be updated', function(){
+    listing.updatePrice(600);
+    expect(listing.price()).toEqual(600);
+  });
+
+  it('has a location', function(){
+    expect(listing.location()).toEqual('London');
   });
 });
