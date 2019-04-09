@@ -51,20 +51,20 @@ class Makersbnb < Sinatra::Base
     erb :login
   end
 
-  get('/listings/new') do
+  get '/listings/new' do
     erb :'/listings/new'
   end
 
-  post('/listings/all') do
+  post '/listings/new' do
     listing = Listing.create(
       name: params[:name],
       location: params[:location],
-      startDate: params[:startDate],
-      endDate: params[:endDate],
-      price: params[:price]
+      city: params[:city],
+      price_per_night: params[:price],
+      user_id: session[:id],
+      available_start_date: params[:startDate],
+      available_end_date: params[:endDate]
     )
-
-    session[:id] = listing[:id]
 
     redirect '/index'
   end
