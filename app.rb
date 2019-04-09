@@ -50,8 +50,11 @@ class Makersbnb < Sinatra::Base
     erb :login
   end
 
-  get('/listings/all') do
-    erb(:'/listings/all')
+  get '/listings/all' do
+    listing = Listing.find_by(id: 1)
+    p listing
+
+    erb :'/listings/all'
   end
 
   post '/sessions' do
