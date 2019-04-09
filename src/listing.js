@@ -6,10 +6,6 @@ function Listing(name, startDate, endDate, price, location){
   this._location = location;
 };
 
-Listing.prototype.delete = function(listing){
-  this.list.splice(this.list.indexOf(listing, 1));
-};
-
 Listing.prototype.name = function(){
   return this._name;
 };
