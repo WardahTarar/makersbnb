@@ -25,6 +25,7 @@ class Makersbnb < Sinatra::Base;
     erb :index
   end
 
+  # USER CREATION
   get '/users/new' do
     erb :signup
   end
@@ -45,6 +46,33 @@ class Makersbnb < Sinatra::Base;
     # p User.find(params[:id])
   end
 
+  # LISTINGS
+  get '/listings/new' do
+    erb :'/listings/new'
+  end
+
+  post '/listings/new' do
+    listing = Listing.create(
+      name: params[:name],
+      location: params[:location],
+      city: params[:city],
+      price_per_night: params[:price],
+      user_id: session[:id],
+      available_start_date: params[:startDate],
+      available_end_date: params[:endDate],
+      description: params[:description]
+    )
+    
+    redirect '/index'
+  end
+
+  get '/listings/all' do
+    @listings = Listing.find_by(id: 1)
+
+    erb :'/listings/all'
+  end
+
+  # SESSION FOR USER ID
   get '/sessions/new/login' do
     erb :login
   end

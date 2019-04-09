@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <title>Listings</title>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+</head>
+
+<body>
+
+<script>
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    
+
+  });
+});
+</script>
+
+<h1>Book a space</h1>
+
+ <div class="intend-dates">
+  <p>Your travel dates:</p>
+  <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+  </div>
+
+<ul>
+    <li> 
+    <%= @listings.name %>
+    </li>
+</ul>
+
+<form action="http://google.com">
+    <input type="submit" value="List Space" />
+</form>
+
+</body>
+</html>
