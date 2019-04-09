@@ -58,8 +58,10 @@ end
     erb :login
   end
 
-  get('/listings/all') do
-    erb(:'/listings/all')
+  get '/listings/all' do
+    @listings = Listing.find_by(id: 1)
+
+    erb :'/listings/all'
   end
 
   post '/sessions' do
