@@ -27,4 +27,9 @@ describe("Listings", function(){
   it('has a location', function(){
     expect(listing.location()).toEqual('London');
   });
+
+  it('location can be updated', function(){
+    listing.updateLocation('Paris');
+    expect(listing.location()).toEqual('Paris');
+  });
 });

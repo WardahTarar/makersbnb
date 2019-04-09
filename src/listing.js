@@ -45,3 +45,7 @@ Listing.prototype.end = function(){
 Listing.prototype.location = function(){
   return this._location;
 };
+
+Listing.prototype.updateLocation = function(newLocation){
+  this._location = newLocation;
+};
