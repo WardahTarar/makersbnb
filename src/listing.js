@@ -6,14 +6,6 @@ function Listing(name, startDate, endDate, price, location){
   this._location = location;
 };
 
-Listing.prototype.create = function(listing, startDate, endDate){
-  this.list.push([listing, startDate, endDate]);
-};
-
-Listing.prototype.all = function(){
-  return this.list;
-};
-
 Listing.prototype.delete = function(listing){
   this.list.splice(this.list.indexOf(listing, 1));
 };

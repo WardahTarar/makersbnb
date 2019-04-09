@@ -14,3 +14,7 @@ class CreateListings < ActiveRecord::Migration[5.2]
     end
   end
 end
+<<<<<<< HEAD
+=======
+
+>>>>>>> f50679ad13995dbc92eac8948975471febb79540

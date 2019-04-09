@@ -31,6 +31,13 @@ class Makersbnb < Sinatra::Base
   post '/users/new' do
     encrypted_password = BCrypt::Password.create(params[:password])
 
+get '/listings' do 
+  @listings = Listing.all
+  erb(:'listings/index')
+  # listing dates, use dropdown
+
+end 
+
     user = User.create(
       first_name: params[:firstName],
       last_name: params[:lastName],
@@ -45,6 +52,7 @@ class Makersbnb < Sinatra::Base
   get '/users/show/:id' do
     # p User.find(params[:id])
   end
+
 
   get '/sessions/new/login' do
     erb :login
@@ -66,6 +74,11 @@ class Makersbnb < Sinatra::Base
     session[:id] = listing[:id]
 
     redirect '/index'
+    
+  get '/listings/all' do
+    @listings = Listing.find_by(id: 1)
+
+    erb :'/listings/all'
   end
 
   post '/sessions' do
