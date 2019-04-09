@@ -1,10 +1,16 @@
 ## Makersbnb
 
+# MVP
+
 ## Spec
 
 Any signed-up user can list a new space.
 
 ## User story
+
+Any signed-up user can list a new space.
+
+### User story
 
 1a) As a user so that I can list a new space, I want be able to sign up
 
@@ -12,11 +18,45 @@ Any signed-up user can list a new space.
 
 ## additional
 
+## Spec
+
+Users can list multiple spaces.
+
+### User story
+
+Tests:
+
+- User should be able to create many listings whcih belong to same user_id
+
+## Spec
+
+Users should be able to name their space, provide a short description of the space, and a price per night.
+
+### User story
+
+## Spec
+
+Users should be able to offer a range of dates where their space is available.
+
+## Spec
+
+Any signed-up user can request to hire any space for one night, and this should be approved by the user that owns that space.
+
+## Spec
+
+Nights for which a space has already been booked should not be available for users to book that space.
+
+## Spec
+
+Until a user has confirmed a booking request, that space can still be booked for that night.
+
 requests
 
 ## Testing JavaScript
 
 - We used NighWatch Js testing framework
+
+## additional
 
 ### Steps to install
 
