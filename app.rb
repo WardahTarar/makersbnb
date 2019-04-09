@@ -7,8 +7,12 @@ Dir["#{current_dir}/models/*.rb"].each { |file| require file }
 class Makersbnb < Sinatra::Base;
 
 
+get '/listings' do 
+  @listings = Listing.all
+  erb(:'listings/index')
+  # listing dates, use dropdown
 
-
+end 
 
 
 
