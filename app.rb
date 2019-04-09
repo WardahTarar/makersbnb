@@ -26,10 +26,6 @@ class Makersbnb < Sinatra::Base;
   end
 
   # USER CREATION
-  get '/users/new' do
-    erb :signup
-  end
-
   post '/users/new' do
     encrypted_password = BCrypt::Password.create(params[:password])
     user = User.create(
@@ -73,9 +69,6 @@ class Makersbnb < Sinatra::Base;
   end
 
   # SESSION FOR USER ID
-  get '/sessions/new/login' do
-    erb :login
-  end
 
   get '/spaces/:listing_id' do
     @listing_id = params[:listing_id]
