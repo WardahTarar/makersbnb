@@ -23,7 +23,7 @@ class Makersbnb < Sinatra::Base
     @user = User.find(session[:id]) if session[:id]
     erb :index
   end
-  
+
   get '/users/new' do
     erb :signup
   end
