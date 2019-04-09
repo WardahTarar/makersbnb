@@ -8,7 +8,8 @@ current_dir = Dir.pwd
 
 Dir["#{current_dir}/models/*.rb"].each { |file| require file }
 
-class Makersbnb < Sinatra::Base
+class Makersbnb < Sinatra::Base;
+
   include BCrypt
   set :root, File.dirname(__FILE__)
   set :public_folder, File.dirname(__FILE__)
@@ -24,20 +25,19 @@ class Makersbnb < Sinatra::Base
     erb :index
   end
 
+  # USER CREATION
   get '/users/new' do
     erb :signup
   end
 
   post '/users/new' do
     encrypted_password = BCrypt::Password.create(params[:password])
-
     user = User.create(
       first_name: params[:firstName],
       last_name: params[:lastName],
       email: params[:email],
       password_digest: encrypted_password
     )
-
     session[:id] = user[:id]
     redirect '/index'
   end
@@ -46,26 +46,23 @@ class Makersbnb < Sinatra::Base
     # p User.find(params[:id])
   end
 
-
-  get '/sessions/new/login' do
-    erb :login
-  end
-
-  get('/listings/new') do
+  # LISTINGS
+  get '/listings/new' do
     erb :'/listings/new'
   end
 
-  post('/listings/all') do
+  post '/listings/new' do
     listing = Listing.create(
       name: params[:name],
       location: params[:location],
-      startDate: params[:startDate],
-      endDate: params[:endDate],
-      price: params[:price]
+      city: params[:city],
+      price_per_night: params[:price],
+      user_id: session[:id],
+      available_start_date: params[:startDate],
+      available_end_date: params[:endDate],
+      description: params[:description]
     )
-
-    session[:id] = listing[:id]
-
+    
     redirect '/index'
   end
 
@@ -73,6 +70,33 @@ class Makersbnb < Sinatra::Base
     @listings = Listing.find_by(id: 1)
 
     erb :'/listings/all'
+  end
+
+  # SESSION FOR USER ID
+  get '/sessions/new/login' do
+    erb :login
+  end
+
+  get '/spaces/:listing_id' do
+    @listing_id = params[:listing_id]
+    @listing = Listing.find(@listing_id)
+    erb :"spaces/spaces"
+  end
+
+  post '/spaces/:listing_id/create' do
+    @listing_id = params[:listing_id]
+    @start_date = Date.today
+    @user_id = session[:id]
+    Request.create(
+      start_date: @start_date,
+      listing_id: @listing_id,
+      user_id: @user_id
+    )
+    redirect "/spaces/#{@listing_id}/create"
+  end
+
+  get '/spaces/:listing_id/create' do
+    erb :'spaces/success'
   end
 
   post '/sessions' do
@@ -88,4 +112,5 @@ class Makersbnb < Sinatra::Base
   end
 
   run! if app_file == $PROGRAM_NAME
+
 end

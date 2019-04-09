@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Is this the space for you?</title>
+  </head>
+  <body>
+    <h1 id="listingName"><%=@listing[:name]%></h1>
+    <p id="listingDescription">This space is in <%=@listing[:location]%>, <%=@listing[:city]%></p>
+    <p>When would you like to book?</p>
+    <input type="text" id="startDate" value="" placeholder='dd-mm-yyyy'>
+    <button type="button" id="request" name="request">Request</button>
+    <input type="hidden" id="listingID" value="<%=@listing_id%>">
+    <script type="text/javascript" src="../../src/requestInterface.js"></script>
+  </body>
+</html>
