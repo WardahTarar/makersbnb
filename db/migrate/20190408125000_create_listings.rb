@@ -10,6 +10,6 @@ class CreateListings < ActiveRecord::Migration[5.2]
       t.timestamps null: false
       t.references :user, foreign_key: true
 
-    end 
+    end
   end
 end

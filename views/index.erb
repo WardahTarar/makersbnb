@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
     <% if @user %>
 
     <h2 id="welcome-message-user">
@@ -13,4 +20,9 @@
     <button id="login_page" name = "login" class="button">Log in</button>
     </h2>
   <% end%>
+  </body>
+</html>
 
+Select * from listings
+Where available_start_date >= start_date AND 
+available_end_date <= end_date
