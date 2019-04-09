@@ -1,2 +1,3 @@
 /tests_output
 chromedriver.log
+/node_modules
