@@ -58,6 +58,23 @@ end
     erb :login
   end
 
+  get('/listings/new') do
+    erb :'/listings/new'
+  end
+
+  post('/listings/all') do
+    listing = Listing.create(
+      name: params[:name],
+      location: params[:location],
+      startDate: params[:startDate],
+      endDate: params[:endDate],
+      price: params[:price]
+    )
+
+    session[:id] = listing[:id]
+
+    redirect '/index'
+    
   get '/listings/all' do
     @listings = Listing.find_by(id: 1)
 
