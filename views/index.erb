@@ -1,0 +1,16 @@
+    <% if @user %>
+
+    <h2 id="welcome-message-user">
+    <%= "Welcome #{@user.first_name}" %>
+    <button id="signout" name = "signout" class="button">Sign out</button>
+    </h2>
+
+    <% else %>
+
+    <h2 id="welcome-general">
+    <%= "Welcome to MakersBNB"%>
+    <button id="signup" name = "signout" class="button">Sign up</button>
+    <button id="login_page" name = "login" class="button">Log in</button>
+    </h2>
+  <% end%>
+
