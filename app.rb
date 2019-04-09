@@ -23,7 +23,7 @@ class Makersbnb < Sinatra::Base
     @user = User.find(session[:id]) if session[:id]
     erb :index
   end
-  
+
   get '/users/new' do
     erb :signup
   end
@@ -50,8 +50,22 @@ class Makersbnb < Sinatra::Base
     erb :login
   end
 
-  get('/listings/all') do
-    erb(:'/listings/all')
+  get('/listings/new') do
+    erb :'/listings/new'
+  end
+
+  post('/listings/all') do
+    listing = Listing.create(
+      name: params[:name],
+      location: params[:location],
+      startDate: params[:startDate],
+      endDate: params[:endDate],
+      price: params[:price]
+    )
+
+    session[:id] = listing[:id]
+
+    redirect '/index'
   end
 
   post '/sessions' do
