@@ -8,8 +8,9 @@ $(document).ready(function() {
     let price = $("#price").val();
     let startDate = $("#startDate").val();
     let endDate = $("#endDate").val();
+    let description = $("#description").val();
 
-    let newListing = listing.create(name, location, city, price, startDate, endDate);
+    let newListing = listing.create(name, location, city, price, startDate, endDate, description);
 
     console.log(newListing);
 

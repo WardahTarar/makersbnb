@@ -60,7 +60,8 @@ class Makersbnb < Sinatra::Base
       price_per_night: params[:price],
       user_id: session[:id],
       available_start_date: params[:startDate],
-      available_end_date: params[:endDate]
+      available_end_date: params[:endDate],
+      description: params[:description]
     )
     
     redirect '/index'
