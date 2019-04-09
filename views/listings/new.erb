@@ -5,19 +5,39 @@
     <title>Current listings</title>
   </head>
   <body>
-    <h1>Add new listing</h1>
-<form class="addListing" action="/listings/all" method="post">
-  <label for="name">Name</label>
-  <input type="text" name="name">
-  <label for="location">Location</label>
-  <input type="text" name="location">
-  <label for="startDate">Start date</label>
-  <input type="text" name="startDate">
-  <label for="endDate">End date</label>
-  <input type="text" name="endDate">
-  <label for="price">Price</label>
-  <input type="text" name="price">
-  <input type="submit" value="Submit">
-</form>
+    <div class="form">
+      <h1>Add new listing</h1>
+      <div class="field-wrap">
+        <input id="name" type="text" name="name" placeholder="Name of Space">
+      </div>
+
+      <div class="field-wrap">
+        <input id="location" type="text" name="location" placeholder="Location">
+      </div>
+
+      <div class="field-wrap">
+        <input id="city" type="text" name="city" placeholder="City">
+      </div>
+
+      <div class="field-wrap">
+        <textarea name="description" id="description" cols="30" rows="10"></textarea>
+      </div>
+
+      <div class="field-wrap">
+        <input id="startDate" type="date" name="startDate">
+      </div>
+
+      <div class="field-wrap">
+        <input id="endDate" type="date" name="endDate">
+      </div>
+
+      <div class="field-wrap">
+        <input id="price" type="text" name="price" placeholder="Price">
+      </div>
+
+      <button id="submitListing" name="createListing" class="button button-block">
+        Create Listing
+      </button>
+    </div>
   </body>
-</html>
+  </html>

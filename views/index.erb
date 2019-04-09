@@ -9,6 +9,7 @@
 
     <h2 id="welcome-message-user">
     <%= "Welcome #{@user.first_name}" %>
+     <button id="listing" name = "listing" class="button">Add Listing</button>
     <button id="signout" name = "signout" class="button">Sign out</button>
     </h2>
 
@@ -20,5 +21,19 @@
     <button id="login_page" name = "login" class="button">Log in</button>
     </h2>
   <% end%>
+
+
+  <% @listings.each do |listing| %>
+  <ul>
+  <li> <%= listing.name %></li>
+  <li> Start Date <%= listing.available_start_date %></li>
+  <li> End Date: <%= listing.available_end_date %></li>
+  <li> Location: <%= listing.location %></li>
+  </ul>
+ 
+ 
+  
+ 
+  <%end%>
   </body>
 </html>

@@ -11,7 +11,9 @@ $(document).ready(function() {
     $.post(
       "http://localhost:9292/sessions",
       { email: email, password: password },
-      function() {}
+      function() {
+        window.location.replace('/index')
+      }
     );
   });
 });

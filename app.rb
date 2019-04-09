@@ -17,15 +17,17 @@ class Makersbnb < Sinatra::Base
   enable :sessions
 
   get '/' do
-    createFakeListing
+    # createFakeListing
     redirect '/index'
   end
 
   get '/index' do
     @user = User.find(session[:id]) if session[:id]
+    @listings = Listing.all
     erb :index
   end
 
+  # USER CREATION
   get '/users/new' do
     erb :signup
   end
@@ -33,10 +35,11 @@ class Makersbnb < Sinatra::Base
   get '/listings' do 
     @listings = Listing.all
     p @listings
-    erb(:'listings/index')
+    erb(:'index')
     # listing dates, use dropdown
   end 
 
+  #SIGN UP ROUTE
   post '/users/new' do
     encrypted_password = BCrypt::Password.create(params[:password])
 
@@ -46,46 +49,41 @@ class Makersbnb < Sinatra::Base
       email: params[:email],
       password_digest: encrypted_password
     )
-
-    p "here"
    
     session[:id] = user[:id]
-    redirect '/index'
+    redirect '/listings'
   end
 
   get '/users/show/:id' do
     # p User.find(params[:id])
   end
 
+  # LISTINGS
+  get '/listings/new' do
+    erb :'/listings/new'
+  end
 
+  post '/listings/new' do
+    listing = Listing.create(
+      name: params[:name],
+      location: params[:location],
+      city: params[:city],
+      price_per_night: params[:price],
+      user_id: session[:id],
+      available_start_date: params[:startDate],
+      available_end_date: params[:endDate],
+      description: params[:description]
+    )
+    
+    redirect '/index'
+  end
+
+  # SESSION FOR USER ID
   get '/sessions/new/login' do
     erb :login
   end
 
-  get('/listings/new') do
-    erb :'/listings/new'
-  end
-
-  post('/listings/all') do
-    listing = Listing.create(
-      name: params[:name],
-      location: params[:location],
-      startDate: params[:startDate],
-      endDate: params[:endDate],
-      price: params[:price]
-    )
-
-    session[:id] = listing[:id]
-
-    redirect '/index'
-  end
-
-  get '/listings/all' do
-    @listings = Listing.find_by(id: 1)
-
-    erb :'/listings/all'
-  end
-
+  #LOGIN ROUTE
   post '/sessions' do
     user = User.find_by(email: params[:email]) # email must be unique
     return unless BCrypt::Password.new(user[:password_digest]) == params[:password]
