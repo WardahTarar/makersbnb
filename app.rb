@@ -31,12 +31,7 @@ class Makersbnb < Sinatra::Base
   post '/users/new' do
     encrypted_password = BCrypt::Password.create(params[:password])
 
-get '/listings' do 
-  @listings = Listing.all
-  erb(:'listings/index')
-  # listing dates, use dropdown
 
-end 
 
     user = User.create(
       first_name: params[:firstName],
