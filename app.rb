@@ -6,7 +6,7 @@ require './fakeDataGenerator'
 require './src/availability.rb'
 require 'bcrypt'
 require 'json'
-require 'stripe'
+require './stripe'
 # current_dir = Dir.pwd
 current_dir = Dir.pwd
 
@@ -113,6 +113,16 @@ class Makersbnb < Sinatra::Base;
       description: params[:description]
     )
     redirect '/index'
+  end
+
+  # PAYMENT ROUTES
+  post '/payment/new' do
+    billing = charge(
+      params[:amount].to_i, 
+      params[:email]
+          )
+    email = findBilling(billing)
+    p email
   end
 
   # SESSION FOR USER ID
