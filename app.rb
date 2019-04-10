@@ -20,7 +20,6 @@ class Makersbnb < Sinatra::Base
   enable :sessions
 
   get '/' do
-    createFakeListing
     redirect '/index'
   end
 
@@ -158,6 +157,29 @@ class Makersbnb < Sinatra::Base
     session.clear
     redirect '/index'
   end
+
+  # Alex
+  get '/users/:user_id/requests' do 
+  #shows all requests for the user
+  @user_id = params[:user_id]
+  @user = User.find(@user_id) if @user_id
+  @requests_submitted = Request.where(user_id: params[:user_id])
+  @hostslistings = Listing.where(user_id: @user_id)
+  @requests_received =[]
+  @hostslistings.each do |listing|
+    @requests_received_per_listing = Request.where(listing_id: listing.id) if Request.where(listing_id: listing.id) != nil
+    @requests_received_per_listing.each do |x|
+    @requests_received <<  x
+    end 
+  end 
+  erb :'requests/index'
+  end 
+
+  
+
+
+
+
 
   run! if app_file == $PROGRAM_NAME
 end
