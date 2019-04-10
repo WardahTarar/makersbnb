@@ -11,6 +11,8 @@
     <script src="/src/signupInterface.js"></script>
     <script src="/src/listingInterface.js"></script>
     <script src="/src/loginInterface.js"></script>
+    <script src="/src/filterInterface.js"></script>
+    <script src="/src/indexInterface.js"></script>
     <script src="/src/user.js"></script>
     <script src="/src/listing.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -20,6 +22,42 @@
     <title>Makers BnB</title>
 </head>
 <body>
+
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <a class="navbar-brand" href="/">Makers BnB</a>
+
+  <% if @user %>
+  <h5>Welcome <%= @user[:first_name] %></h5>
+     <span class="navbar-text">
+    <h2 id="welcome-message-user">
+    
+    <button id="listing" name = "listing" class="btn btn-secondary active">Add Listing</button>
+    <button id="search" name = "search" class="btn btn-secondary">Search</button>
+    <button id="signout" name = "signout" class="btn btn btn-danger">Sign out</button>
+    </h2>
+     </span>
+    <% else %>
+    <span class="navbar-text">
+    <h2 id="welcome-general">
+    
+    <button id="signup" name = "signout" class="btn btn-secondary active">Sign up</button>
+    <button id="login_page" name = "login" class="btn btn-secondary">Log in</button>
+    <button id="search" name = "search" class="btn btn-secondary">Search</button>
+    </h2>
+     </span>
+  <% end%>
+
+</nav>
+
+<div class="form" id='form'>
+  <h3>Book a space</h3>
+
+  <div class="intend-dates">
+    <p>Your travel dates:</p>
+    <input type="text" id = "daterange" name="daterange" value="05/05/2019 - 05/15/2019" />
+  </div>
+</div>
+
   <%= yield %>
 </body>
 </html>

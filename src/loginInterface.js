@@ -6,13 +6,17 @@ $(document).ready(function() {
   });
 
   $("#login_submit").click(function() {
+    //event listener
     let email = $("#email").val();
     let password = $("#password").val();
     $.post(
       "http://localhost:9292/sessions",
-      { email: email, password: password },
+      {
+        email: email,
+        password: password
+      },
       function() {
-        window.location.replace('/index')
+        window.location.replace("/index");
       }
     );
   });

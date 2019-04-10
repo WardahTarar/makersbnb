@@ -1,48 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <title>Listings</title>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-</head>
 
-<body>
+<%# redundant file ;istings files not called%>
 
-<script>
-$(function() {
-  $('input[name="daterange"]').daterangepicker({
-    opens: 'left'
-  }, function(start, end, label) {
-    
+<div class="row text-center" style="display:flex; flex-wrap:wrap;">
 
-  });
-});
-</script>
+  <% @listings.each do |listing|  %>
 
-<h1>Book a space</h1>
+  <div class="card-deck">
 
- <div class="intend-dates">
-  <p>Your travel dates:</p>
-  <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+    <div class="card" style="margin: 20px;">
+      <%# <img class="card-img-top" src="..." alt="Card image cap"> %>
+      <div class="card-body">
+        <h5 class="card-title"><%= listing.name %> </h5>
+        <p class="card-text"> Description </p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"> <%= listing.available_start_date.strftime("%d/%m/%Y") %> - <%= listing.available_end_date.strftime("%d/%m/%Y")%> </li>
+        <li class="list-group-item">Address: <%= listing.location %> </li>
+        <li class="list-group-item">City: <%= listing.city %></li>
+      </ul>
+
+      <div class="card-body">
+        <a href="#" class="card-link">Book</a>
+      </div>
+
+      <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+
+    </div>
+
   </div>
-
-<ul>
-  <% @listings.each do |x| %>
-    <li> 
-    <%= x.name %>
-    </li>
   <% end %>
-</ul>
 
-<form action="http://google.com">
-    <input type="submit" value="List Space" />
-</form>
-
-</body>
-</html>
+</div>
+<%# listings %>
 

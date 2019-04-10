@@ -3,7 +3,9 @@ $(function (){
 
   $.ajax({
     type: 'GET',
-    url: 'http://localhost:9292/api/listings',
+    contentType: "application/json",
+    dataType: "json",
+    url: 'http://localhost:9292/api/listings/get/filtered',
     success: function(listings) 
     {
       $.each(listings, function(i,listing) 
@@ -24,7 +26,7 @@ $(function (){
             '</ul>' +
       
             '<div class="card-body">' + 
-              '<a href="/index" class="card-link">Book</a>' +
+              '<a href="#" class="card-link">Book</a>' +
             '</div>' +
 
             '<div class="card-footer">' +
@@ -44,8 +46,3 @@ $(function (){
 <div id = 'card' class="row text-center justify-content-center" style="display:flex; flex-wrap:wrap;">
   
 </div>
-
-    
-
-  
- 
