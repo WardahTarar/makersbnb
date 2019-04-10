@@ -3,8 +3,8 @@ $(document).ready(function() {
     var listingID = $("#listingID").val();
     var startDate = $("#startDate").val();
     $(".selector").flatpickr();
-    $.post("http://localhost:9292/spaces/"+listingID+"/create", { start_date: startDate }, function() {
-      window.location.replace("/spaces/"+listingID+"/create");
+    $.post("http://localhost:9292/listings/"+listingID+"/new", { start_date: startDate }, function() {
+      window.location.replace("/listings/"+listingID+"/new");
     });
   });
 });
