@@ -10,6 +10,8 @@ gem "activerecord"
 gem 'pg'
 gem 'bcrypt'
 gem 'rerun'
+gem 'faker'
+gem 'json'
 
 
 

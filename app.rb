@@ -11,8 +11,7 @@ current_dir = Dir.pwd
 
 Dir["#{current_dir}/models/*.rb"].each { |file| require file }
 
-class Makersbnb < Sinatra::Base;
-
+class Makersbnb < Sinatra::Base
   include BCrypt
 
   set :root, File.dirname(__FILE__)
@@ -66,11 +65,10 @@ class Makersbnb < Sinatra::Base;
     listings.to_json
   end
 
-  
   get '/listings/new' do
     erb :'/listings/new'
   end
-  
+
   # FILTERING ROUTES START
   # Click apply in daterange picker
   # 1. Daterange function (filterInterface.js) sends dates to /api/listings/dates
@@ -98,7 +96,6 @@ class Makersbnb < Sinatra::Base;
 
   # FILTERING ROUTES END
 
-
   post '/listings/new' do
     listing = Listing.create(
       name: params[:name],
@@ -120,28 +117,28 @@ class Makersbnb < Sinatra::Base;
 
   # LOGIN ROUTE
 
-  get '/spaces/:listing_id' do
+  get '/listings/:listing_id/new' do
     @listing_id = params[:listing_id]
     @listing = Listing.find(@listing_id)
+    @start_date = @listing[:available_start_date].strftime("%Y-%m-%d")
+    @end_date = @listing[:available_end_date].strftime("%Y-%m-%d")
+    @user_id = session[:id]
+    @user = User.find(@user_id) if @user_id
     erb :"spaces/spaces"
   end
 
-  post '/spaces/:listing_id/create' do
+  post '/listings/:listing_id/new' do
     @listing_id = params[:listing_id]
-    @start_date = Date.today
+    @start_date = params[:startDate]
     @user_id = session[:id]
+    @user = User.find(@user_id) if @user_id
     Request.create(
       start_date: @start_date,
       listing_id: @listing_id,
       user_id: @user_id
     )
-    redirect "/spaces/#{@listing_id}/create"
+    redirect '/index'
   end
-
-  get '/spaces/:listing_id/create' do
-    erb :'spaces/success'
-  end
-
 
   post '/sessions' do
     user = User.find_by(email: params[:email]) # email must be unique
@@ -189,5 +186,4 @@ class Makersbnb < Sinatra::Base;
 
 
   run! if app_file == $PROGRAM_NAME
-
 end
