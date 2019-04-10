@@ -13,6 +13,7 @@ gem 'rerun'
 gem 'faker'
 gem 'json'
 gem 'twilio-ruby'
+gem 'sendgrid-ruby'
 
 
 
