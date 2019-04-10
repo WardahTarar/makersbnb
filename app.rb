@@ -116,7 +116,7 @@ class Makersbnb < Sinatra::Base
   #   erb :login
   # end
 
-  # LOGIN ROUTE
+  # MAKE BOOKINGS
 
   get '/listings/:listing_id/new' do
     @listing_id = params[:listing_id]
