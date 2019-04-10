@@ -138,6 +138,14 @@ textarea {
   margin-bottom: 40px;
 }
 
+.calendar-wrap {
+  margin-bottom: 40px;
+  position: relative;
+  width: 306px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .top-row:after {
   content: "";
   display: table;
