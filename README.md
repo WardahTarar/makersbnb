@@ -104,18 +104,9 @@ Testing:
 
 Feature Testing: - use a headless browser instead of NightWatch (which has a head :)
 
-LIST for testing:
-
-- SignUp page - Done
-- Login page
-- Sign out
-- Search functionality
-- Booking button
-- Booking / selecting dates
-
-* npm install zombie --save
-* npm install mocha --save
-* npm install chai --save
+- npm install zombie --save
+- npm install mocha --save
+- npm install chai --save
 
 Create yourfile.spec.js file
 
@@ -125,7 +116,7 @@ Create yourfile.spec.js file
 
 Example:
 
-- use node assert module = `var assert = require("assert");`
+> Note: use node assert module = `var assert = require("assert");`
 
 ```js
 var Browser = require("zombie");
@@ -164,3 +155,26 @@ describe("index page", function() {
   });
 });
 ```
+
+**Code coverage for testing with Mocha (Zombie):**
+
+For code coverage you need an additional library, and you are going to be blown away by how powerful and easy istanbul is. Try the following, after you get your mocha tests to pass:
+
+`npm install nyc --save-dev`
+
+Now, simply place the command nyc in front of your existing test command, for example:
+
+```json
+{
+  "scripts": {
+    "test": "mocha spec/features",
+    "test_with_coverage": "nyc --reporter=text mocha spec/features"
+  }
+}
+```
+
+> Note: spec/features is the folder where your tests are
+
+**How to run:**
+`npm run test` - for running tests withouth seeing the coverage
+`npm run test_with_coverage` - for running tests withouth seeing the coverage

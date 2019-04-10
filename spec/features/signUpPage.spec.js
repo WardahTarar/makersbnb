@@ -9,7 +9,7 @@ describe("contact page", function() {
   it("should accept complete submissions");
 });
 
-describe("sign up form", function() {
+describe("Sign up", function() {
   before(function() {
     this.browser = new Browser({ site: "http://localhost:9292" });
   });
@@ -28,7 +28,6 @@ describe("sign up form", function() {
     var browser = this.browser;
 
     browser.pressButton("signup", function(error) {
-      if (error) return done(error);
       assert.ok(browser.success);
       assert.equal(browser.text("#titleSignUp"), "Sign up");
       browser.fill("firstName", "John");
@@ -43,7 +42,6 @@ describe("sign up form", function() {
   it("should refuse empty fields when signing up", function(done) {
     var browser = this.browser;
     browser.pressButton("signup", function(error) {
-      if (error) return done(error);
       browser.pressButton("#submitCreate");
       assert.equal(browser.text("#alert"), "Please fill in all the fields");
       done();
@@ -62,7 +60,6 @@ describe("sign up form", function() {
     it("should refuse partial fields when signing up", function(done) {
       var browser = this.browser;
       browser.pressButton("signup", function(error) {
-        if (error) return done(error);
         browser.fill("firstName", "John");
         browser.pressButton("#submitCreate");
         assert.equal(browser.text("#alert"), "Please fill in all the fields");
@@ -83,7 +80,6 @@ describe("sign up form", function() {
     it("should refuse invalid emails when signing up", function(done) {
       var browser = this.browser;
       browser.pressButton("signup", function(error) {
-        if (error) return done(error);
         browser.fill("firstName", "John");
         browser.fill("lastName", "Snow");
         browser.fill("email", "Not an email");

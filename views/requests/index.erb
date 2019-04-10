@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Your requests</title>
+</head>
+<body>
+  <h1>Requests</h1>
+  <div class="row text-center" style="display:flex; flex-wrap:wrap;"></div>
+    <h2>Requests I've made</h2>
+    <% @requests_submitted.each do |x| %>
+      <div class="card-deck"></div>
+          <div class="card" style="margin: 20px;">
+              <div class="card-body">
+                  <h5 class="card-title"><%= x.listing.name %></h5>
+                  <ul class="list-group list-group-flush">
+                      <li class="list-group-item"> <%= x.start_date.strftime("%d/%m/%Y") %> </li>
+                      <li class="list-group-item">Status: <%= x.approved ? "Confirmed" : "Pending" %> </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+    <% end %>
+
+    <h2>Requests I've received</h2>
+     <% @requests_received.each do |x| %>
+      <div class="card-deck">
+        <div class="card" style="margin: 20px;">
+            <div class="card-body">
+                <h5 class="card-title"> <%= x.listing.name %></h5>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"> <%= x.start_date.strftime("%d/%m/%Y") %> </li>
+                    <li class="list-group-item">Status: <%= x.approved ? "Confirmed" : "Pending" %></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+   <% end %>
+</div>
+
+</body>
+</html>

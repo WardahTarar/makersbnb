@@ -7,7 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "zombie"
+    "test": "mocha --exit spec/features",
+    "test_with_coverage": "nyc --reporter=text mocha --exit spec/features"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "chromedriver": "^2.46.0",
     "jest": "^24.7.1",
+    "nyc": "^13.3.0",
     "zombie": "^6.1.4"
   }
 }
