@@ -68,16 +68,26 @@ class Makersbnb < Sinatra::Base
     listings.to_json
   end
 
+  
   get '/listings/new' do
     erb :'/listings/new'
   end
-
+  
   # FILTERING ROUTES START
+  # Click apply in daterange picker
+  # 1. Daterange function (filterInterface.js) sends dates to /api/listings/dates
+
   post '/api/listings/dates' do
     session[:start] = params[:start]
     session[:end] = params[:end]
   end
 
+  # 2. Daterange function (filterInterface.js) routes to this page listings/show
+  get '/listings/show' do
+    erb :'listings/show'
+  end
+
+  # 3. listings/show creates the webpage and sends a get reuquest to the end point below
   # CALLING THIS API FROM listings/show page
   get '/api/listings/get/filtered' do
     listings = CheckAvailability.check_dates(session[:start], session[:end])
@@ -89,9 +99,7 @@ class Makersbnb < Sinatra::Base
   end
 
   # FILTERING ROUTES END
-  get '/listings/show' do
-    erb :'listings/show'
-  end
+
 
   post '/listings/new' do
     listing = Listing.create(
