@@ -10,12 +10,20 @@ $(document).ready(function() {
     let endDate = $("#endDate").val();
     let description = $("#description").val();
 
-    let newListing = listing.create(name, location, city, price, startDate, endDate, description);
+    let newListing = listing.create(
+      name,
+      location,
+      city,
+      price,
+      startDate,
+      endDate,
+      description
+    );
 
     console.log(newListing);
 
-    $.post("http://localhost:9292/listings/new", newListing, function(){
-      window.location.replace("/index")
+    $.post("http://localhost:9292/listings/new", newListing, function() {
+      window.location.replace("/index");
     });
   });
 });

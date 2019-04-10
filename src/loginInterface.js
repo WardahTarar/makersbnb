@@ -1,18 +1,16 @@
 $(document).ready(function() {
-  $("#login_page").click(function() {
-    $.get("http://localhost:9292/sessions/new/login", function() {
-      window.location.replace("/sessions/new/login");
-    });
-  });
-
-  $("#login_submit").click(function() {
-    let email = $("#email").val();
-    let password = $("#password").val();
+  $("#loginSubmit").click(function() {
+    //event listener
+    let email = $("#emailLogIn").val();
+    let password = $("#passwordLogIn").val();
     $.post(
       "http://localhost:9292/sessions",
-      { email: email, password: password },
+      {
+        email: email,
+        password: password
+      },
       function() {
-        window.location.replace('/index')
+        window.location.replace("/index");
       }
     );
   });
