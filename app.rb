@@ -160,23 +160,18 @@ class Makersbnb < Sinatra::Base
   # Alex
   get '/users/:user_id/requests' do 
   #shows all requests for the user
-  # @user.id = User.find(params[:user_id])
+  @user_id = params[:user_id]
+  @user = User.find(@user_id) if @user_id
   @requests_submitted = Request.where(user_id: params[:user_id])
-  
-  @hostslistings = Listing.where(user_id: session[:id])
-  p @hostslistings
+  @hostslistings = Listing.where(user_id: @user_id)
+  @requests_received =[]
   @hostslistings.each do |listing|
-    @requests_received << Request.where(listing_id: listing[:id])
+    @requests_received_per_listing = Request.where(listing_id: listing.id) if Request.where(listing_id: listing.id) != nil
+    @requests_received_per_listing.each do |x|
+    @requests_received <<  x
+    end 
   end 
-  
   erb :'requests/index'
-  #find host
-  # @hostlising = 
-  # @host = User.find_by(   
-
-
-  # )
-  # @requests_received = Request.where(listing_id: User.listing)
   end 
 
   

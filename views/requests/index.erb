@@ -16,18 +16,31 @@
               <div class="card-body">
                   <h5 class="card-title"><%= x.listing.name %></h5>
                   <ul class="list-group list-group-flush">
-
-                      <li class="list-group-item">Status: <%= x.approved %> </li>
                       <li class="list-group-item"> <%= x.start_date.strftime("%d/%m/%Y") %> </li>
+                      <li class="list-group-item">Status: <%= x.approved ? "Confirmed" : "Pending" %> </li>
                   </ul>
               </div>
           </div>
       </div>
     <% end %>
+
+    <h2>Requests I've received</h2>
+     <% @requests_received.each do |x| %>
+      <div class="card-deck">
+        <div class="card" style="margin: 20px;">
+            <div class="card-body">
+                <h5 class="card-title"> <%= x.listing.name %></h5>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"> <%= x.start_date.strftime("%d/%m/%Y") %> </li>
+                    <li class="list-group-item">Status: <%= x.approved ? "Confirmed" : "Pending" %></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+   <% end %>
 </div>
-
-
-
 
 </body>
 </html>
