@@ -6,11 +6,11 @@ $(function (){
     contentType: "application/json",
     dataType: "json",
     url: 'http://localhost:9292/api/listings/get/filtered',
-    success: function(listings) 
+    success: function(listings)
     {
-      $.each(listings, function(i,listing) 
+      $.each(listings, function(i,listing)
       {
-      
+
       $('#card').append(
       '<div class="card-deck">' +
         '<div class="card" style="width: 18rem; margin: 20px;">' +
@@ -24,9 +24,9 @@ $(function (){
             '<li id = "location" class="list-group-item">Address:'+ listing.location +'</li>' +
             '<li id = "city" class="list-group-item">'+ listing.city +'</li>' +
             '</ul>' +
-      
-            '<div class="card-body">' + 
-              '<a href="#" class="card-link">Book</a>' +
+
+            '<div class="card-body">' +
+              '<a href="/listings/' + listing.id + '/new" class="card-link">Book</a>' +
             '</div>' +
 
             '<div class="card-footer">' +
@@ -44,5 +44,5 @@ $(function (){
 </script>
 
 <div id = 'card' class="row text-center justify-content-center" style="display:flex; flex-wrap:wrap;">
-  
+
 </div>

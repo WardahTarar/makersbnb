@@ -3,4 +3,4 @@ chromedriver.log
 /node_modules
 /helper/text_helper.rb“sendgrid.env” source ./sendgrid.env
 sendgrid.env
-sendgrid.env
+./helper/email_helper_private.rb
