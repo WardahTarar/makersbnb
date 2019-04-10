@@ -116,19 +116,18 @@ class Makersbnb < Sinatra::Base;
   end
 
   # PAYMENT ROUTES
-  post '/payment/new' do
+  post '/payments/new' do
     billing = charge(
       params[:amount].to_i, 
       params[:email]
           )
-    email = findBilling(billing)
-    p email
+    
+    # billing search function - returns json object
+    # place in get route in future - need to store billing into database
+    # transactions table with billing ids and associated user id
+    p findBilling(billing) 
+    
   end
-
-  # SESSION FOR USER ID
-  # get '/sessions/new/login' do
-  #   erb :login
-  # end
 
   # LOGIN ROUTE
 
