@@ -166,6 +166,11 @@ class Makersbnb < Sinatra::Base;
   # @user.id = User.find(params[:user_id])
   @requests_submitted = Request.where(user_id: params[:user_id])
   
+  @hostslistings = Listing.where(user_id: session[:id])
+  p @hostslistings
+  @hostslistings.each do |listing|
+    @requests_received << Request.where(listing_id: listing[:id])
+  end 
   
   erb :'requests/index'
   #find host
