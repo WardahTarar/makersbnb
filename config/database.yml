@@ -6,9 +6,6 @@ test:
   username: 
   password: 
 
-
-
-
 development:
   adapter: postgresql
   encoding: unicode

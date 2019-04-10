@@ -70,18 +70,13 @@ class Makersbnb < Sinatra::Base;
     erb :'/listings/all'
   end
 
-  # SESSION FOR USER ID
-  get '/sessions/new/login' do
-    erb :login
-  end
-
-  get '/spaces/:listing_id' do
+  get '/listings/:listing_id/new' do
     @listing_id = params[:listing_id]
     @listing = Listing.find(@listing_id)
     erb :"spaces/spaces"
   end
 
-  post '/spaces/:listing_id/create' do
+  post '/listings/:listing_id/new' do
     @listing_id = params[:listing_id]
     @start_date = params[:start_date]
     @user_id = session[:id]
@@ -90,12 +85,17 @@ class Makersbnb < Sinatra::Base;
       listing_id: @listing_id,
       user_id: @user_id
     )
-    redirect "/spaces/#{@listing_id}/create"
+    redirect "/index"
   end
 
-  get '/spaces/:listing_id/create' do
-    erb :'spaces/success'
+  # SESSION FOR USER ID
+  get '/sessions/new/login' do
+    erb :login
   end
+
+  # REQUESTS
+
+
 
   post '/sessions' do
     user = User.find_by(email: params[:email]) # email must be unique
