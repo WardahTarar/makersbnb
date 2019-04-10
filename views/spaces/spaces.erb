@@ -26,17 +26,24 @@
         Request
       </button>
 
+      <a href="/index" class="card-link">Go Back </a>
+      <a href="/index" class="card-link"><%=@start_date%> </a>
+
       <input type="hidden" id="listingID" value="<%=@listing_id%>">
+      <input type="hidden" id="listingStartDate" value="<%=@start_date%>">
+      <input type="hidden" id="listingEndDate" value="<%=@end_date%>">
 
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         var datePicker = flatpickr("#startDate", {
-          disable: ["2019-01-16", "2019-01-18"],
+          minDate: document.getElementById("listingStartDate").value,
+          maxDate: document.getElementById("listingEndDate").value,
+          // disable: ["2019-01-16", "2019-01-18"],
           dateFormat: "Y-m-d",
           inline: true,
-          defaultDate: "2019-01-17"
+          defaultDate: document.getElementById("listingStartDate").value,
         });
     </script>
 
