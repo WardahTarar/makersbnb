@@ -74,6 +74,12 @@ h1 {
   margin: 0 0 40px;
 }
 
+p {
+  text-align: center;
+  color: gray;
+  margin: 0 0 40px;
+}
+
 label {
   position: absolute;
   transform: translateY(6px);

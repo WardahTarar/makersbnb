@@ -6,7 +6,7 @@ class CreateRequests < ActiveRecord::Migration[5.2]
       t.boolean :approved
       # t.references :user, foreign_key: true
       t.references :listing, foreign_key: true
-      t.references :user, foreign_key: true
+      t.references :user
 
       # t.string :first_name
       # t.string :last_name
@@ -15,6 +15,6 @@ class CreateRequests < ActiveRecord::Migration[5.2]
       # t.string :password_digest
       # t.boolean :active_host
       t.timestamps null: false
-    end 
+    end
   end
 end
