@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Is this the space for you?</title>
+  </head>
+
+  <body>
+
+    <div class="form">
+
+      <h1 id="listingName"><%=@listing[:name]%></h1>
+
+      <p id="listingDescription">This space is in <%=@listing[:location]%>, <%=@listing[:city]%></p>
+
+      <p>When would you like to book?</p>
+
+      <div class="field-wrap">
+        <input type="text" id="startDate" value="" placeholder='dd-mm-yyyy'>
+      </div>
+
+      <div id="calendar"></div>
+
+      <button type="button" id="request" name="request" class="button button-block">
+        Request
+      </button>
+
+      <input type="hidden" id="listingID" value="<%=@listing_id%>">
+
+      <script type="text/javascript" src="../../src/requestInterface.js"></script>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="js/jquery-ui-datepicker.min.js"></script>
+    <script>
+        $('#calendar').datepicker({
+            inline: true,
+            firstDay: 1,
+            showOtherMonths: true,
+            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        });
+    </script>
+
+  </body>
+
+</html>
