@@ -121,7 +121,8 @@ class Makersbnb < Sinatra::Base;
       params[:amount].to_i, 
       params[:email]
           )
-    
+
+    Transactions.create(stripe_billing_id: billing, user_id: 1)
     # billing search function - returns json object
     # place in get route in future - need to store billing into database
     # transactions table with billing ids and associated user id
