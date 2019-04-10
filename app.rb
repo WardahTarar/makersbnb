@@ -11,8 +11,7 @@ current_dir = Dir.pwd
 
 Dir["#{current_dir}/models/*.rb"].each { |file| require file }
 
-class Makersbnb < Sinatra::Base;
-
+class Makersbnb < Sinatra::Base
   include BCrypt
 
   set :root, File.dirname(__FILE__)
@@ -67,7 +66,6 @@ class Makersbnb < Sinatra::Base;
     listings.to_json
   end
 
-
   get '/listings/new' do
     erb :'/listings/new'
   end
@@ -98,7 +96,6 @@ class Makersbnb < Sinatra::Base;
   end
 
   # FILTERING ROUTES END
-
 
   post '/listings/new' do
     listing = Listing.create(
@@ -136,9 +133,8 @@ class Makersbnb < Sinatra::Base;
       listing_id: @listing_id,
       user_id: @user_id
     )
-    redirect "/index"
+    redirect '/index'
   end
-
 
   post '/sessions' do
     user = User.find_by(email: params[:email]) # email must be unique
@@ -158,5 +154,4 @@ class Makersbnb < Sinatra::Base;
   end
 
   run! if app_file == $PROGRAM_NAME
-
 end
