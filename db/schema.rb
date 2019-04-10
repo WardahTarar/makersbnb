@@ -73,6 +73,5 @@ ActiveRecord::Schema.define(version: 2019_04_09_145800) do
   add_foreign_key "availability", "listings"
   add_foreign_key "listings", "users"
   add_foreign_key "requests", "listings"
-  add_foreign_key "requests", "users"
   add_foreign_key "reservations", "requests"
 end
