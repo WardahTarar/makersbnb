@@ -13,7 +13,7 @@
     <script src="/src/loginInterface.js"></script>
     <script src="/src/filterInterface.js"></script>
     <script src="/src/indexInterface.js"></script>
-    <script src="/src/requestInterface.js"></script>
+    <script src="/src/makeRequestInterface.js"></script>
     <script src="/src/user.js"></script>
     <script src="/src/listing.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -28,7 +28,7 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-12"> 
+      <div class="col-md-12">
 
         <% if @user %>
 
@@ -51,9 +51,9 @@
 
         </h2>
         <% end%>
-        
+
       </div>
-     
+
     </div>
   </div>
   <!-- Modal for Log In -->
@@ -142,10 +142,5 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
 
-
-
-  <%= yield %>
 </body>
 </html>
-
-

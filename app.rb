@@ -20,7 +20,7 @@ class Makersbnb < Sinatra::Base
   enable :sessions
 
   get '/' do
-    # createFakeListing
+    createFakeListing
     redirect '/index'
   end
 
@@ -120,7 +120,11 @@ class Makersbnb < Sinatra::Base
 
   get '/listings/:listing_id/new' do
     @listing_id = params[:listing_id]
+    p 'here bitch'
     @listing = Listing.find(@listing_id)
+    @user_id = session[:id]
+    p @user_id
+    @user = User.find(@user_id) if @user_id
     erb :"spaces/spaces"
   end
 
@@ -128,6 +132,8 @@ class Makersbnb < Sinatra::Base
     @listing_id = params[:listing_id]
     @start_date = Date.today
     @user_id = session[:id]
+    p @user_id
+    @user = User.find(@user_id) if @user_id
     Request.create(
       start_date: @start_date,
       listing_id: @listing_id,
