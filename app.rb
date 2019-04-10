@@ -62,13 +62,11 @@ class Makersbnb < Sinatra::Base;
       available_end_date: params[:endDate],
       description: params[:description]
     )
-    
     redirect '/index'
   end
 
   get '/listings/all' do
     @listings = Listing.find_by(id: 1)
-
     erb :'/listings/all'
   end
 
@@ -85,7 +83,7 @@ class Makersbnb < Sinatra::Base;
 
   post '/spaces/:listing_id/create' do
     @listing_id = params[:listing_id]
-    @start_date = Date.today
+    @start_date = params[:start_date]
     @user_id = session[:id]
     Request.create(
       start_date: @start_date,

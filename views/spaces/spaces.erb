@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Is this the space for you?</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   </head>
 
   <body>
@@ -16,10 +17,10 @@
       <p>When would you like to book?</p>
 
       <div class="field-wrap">
-        <input type="text" id="startDate" value="" placeholder='dd-mm-yyyy'>
+        <input type="text" id="startDate">
       </div>
 
-      <div id="calendar"></div>
+
 
       <button type="button" id="request" name="request" class="button button-block">
         Request
@@ -27,18 +28,16 @@
 
       <input type="hidden" id="listingID" value="<%=@listing_id%>">
 
-      <script type="text/javascript" src="../../src/requestInterface.js"></script>
 
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="js/jquery-ui-datepicker.min.js"></script>
+    <script type="text/javascript" src="../../src/requestInterface.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        $('#calendar').datepicker({
-            inline: true,
-            firstDay: 1,
-            showOtherMonths: true,
-            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        var datePicker = flatpickr("#startDate", {
+          disable: ["2019-01-16", "2019-01-18"],
+          dateFormat: "Y-m-d",
+          inline: true
         });
     </script>
 
