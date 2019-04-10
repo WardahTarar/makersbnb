@@ -104,16 +104,18 @@ Testing:
 
 Feature Testing: - use a headless browser instead of NightWatch (which has a head :)
 
-LIST:
+LIST for testing:
 
 - SignUp page - Done
 - Login page
 - Sign out
 - Search functionality
+- Booking button
+- Booking / selecting dates
 
-- npm install zombie --save
-- npm install mocha --save
-- npm install chai --save
+* npm install zombie --save
+* npm install mocha --save
+* npm install chai --save
 
 Create yourfile.spec.js file
 

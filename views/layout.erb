@@ -30,13 +30,14 @@
     <div class="row">
       <div class="col-md-12">
 
-        <% if @user %>
+        <% if session[:id] %>
+        <% @user = User.find(session[:id]) if session[:id] %>
 
         <span class = "float-left"><h2> <%= "Welcome #{@user.first_name}" %> </h2> </span>
         
         <h2 id="welcome-message-user" class="float-right">
-         <button id="listing" name = "listing" class="btn btn-secondary active">Add Listing</button>
           <button id="signout" name="signout" class="btn btn-danger">Sign out</button>
+          <button id="listing" name = "listing" class="btn btn-secondary">Add Listing</button>
           <button id="search" name = "search" class="btn btn-secondary">Search</button>
         </h2>
 
@@ -48,7 +49,7 @@
 
           <button id="signup" name="signup" class="btn btn-danger" data-toggle="modal"
             data-target="#modalRegisterForm">Sign up</button>
-          <button id="loginBtn" name="login" class="btn btn-danger" data-toggle="modal"
+          <button id="loginBtn" name="login" class="btn btn-success" data-toggle="modal"
             data-target="#modalLoginForm">Log in</button>
           <button id="search" name = "search" class="btn btn-secondary">Search</button>
 
@@ -140,6 +141,7 @@
 <%# Search form %>
 
   
+  <%= yield %>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
@@ -148,5 +150,7 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
 
+
+  
 </body>
 </html>
