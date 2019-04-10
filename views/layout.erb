@@ -21,34 +21,107 @@
     <link rel="icon" href="/images/favicon.ico">
     <title>Makers BnB</title>
 </head>
+
 <body>
 
-<nav class="navbar navbar-light bg-light justify-content-between">
-  <a class="navbar-brand" href="/">Makers BnB</a>
 
-  <% if @user %>
-  <h5>Welcome <%= @user[:first_name] %></h5>
-     <span class="navbar-text">
-    <h2 id="welcome-message-user">
-    
-    <button id="listing" name = "listing" class="btn btn-secondary active">Add Listing</button>
-    <button id="search" name = "search" class="btn btn-secondary">Search</button>
-    <button id="signout" name = "signout" class="btn btn btn-danger">Sign out</button>
-    </h2>
-     </span>
-    <% else %>
-    <span class="navbar-text">
-    <h2 id="welcome-general">
-    
-    <button id="signup" name = "signout" class="btn btn-secondary active">Sign up</button>
-    <button id="login_page" name = "login" class="btn btn-secondary">Log in</button>
-    <button id="search" name = "search" class="btn btn-secondary">Search</button>
-    </h2>
-     </span>
-  <% end%>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12"> 
 
-</nav>
+        <% if @user %>
 
+          <span class = "float-left"><h2> <%= "Welcome #{@user.first_name}" %> </h2> </span>
+        <h2 id="welcome-message-user" class="float-right">
+          <button id="signout" name="signout" class="btn btn-danger">Sign out</button>
+          <button id="search" name = "search" class="btn btn-secondary">Search</button>
+        </h2>
+
+        <% else %>
+
+           <span class = "float-left"><h2> <%= "Welcome to MakersBNB"%></h2> </span>
+        <h2 id="welcome-general" class="float-right">
+
+          <button id="signup" name="signout" class="btn btn-danger" data-toggle="modal"
+            data-target="#modalRegisterForm">Sign up</button>
+          <button id="loginBtn" name="login" class="btn btn-danger" data-toggle="modal"
+            data-target="#modalLoginForm">Log in</button>
+          <button id="search" name = "search" class="btn btn-secondary">Search</button>
+
+        </h2>
+        <% end%>
+        
+      </div>
+     
+    </div>
+  </div>
+  <!-- Modal for Log In -->
+  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body mx-3">
+          <div class="md-form mb-5">
+            <i class="fas fa-envelope prefix grey-text"></i>
+            <input type="email" id="emailLogIn" class="form-control validate" placeholder="email">
+          </div>
+
+          <div class="md-form mb-4">
+            <i class="fas fa-lock prefix grey-text"></i>
+            <input type="password" id="passwordLogIn" class="form-control validate" placeholder="password">
+          </div>
+
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button id="loginSubmit" class="btn btn-danger">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Sign Up  -->
+  <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body mx-3">
+          <div class="md-form mb-5">
+            <i class="fas fa-user prefix grey-text"></i>
+            <input name="firstName" type="text" id="firstName" placeholder="First name" />
+            <br>
+            <input name="lastName" type="text" id="lastName" placeholder="Last name" />
+          </div>
+          <div class="md-form mb-5">
+            <i class="fas fa-envelope prefix grey-text"></i>
+            <input name="email" type="email" id="emailCreate" placeholder="Email" />
+          </div>
+
+          <div class="md-form mb-4">
+            <i class="fas fa-lock prefix grey-text"></i>
+            <input name="password" type="password" id="passwordCreate" placeholder="Password" />
+          </div>
+
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button id="submitCreate" class="btn btn-danger">Sign up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%# Search form %>
 <div class="form" id='form'>
   <h3>Book a space</h3>
 
@@ -57,6 +130,18 @@
     <input type="text" id = "daterange" name="daterange" value="05/05/2019 - 05/15/2019" />
   </div>
 </div>
+<%# Search form %>
+
+  <%= yield %>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+
+
 
   <%= yield %>
 </body>

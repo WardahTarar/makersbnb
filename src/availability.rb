@@ -11,5 +11,3 @@ class CheckAvailability
                   start_date: start_date, end_date: end_date).as_json
   end
 end
-
-

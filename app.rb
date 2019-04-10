@@ -33,9 +33,9 @@ class Makersbnb < Sinatra::Base
   end
 
   # USER CREATION
-  get '/users/new' do
-    erb :signup
-  end
+  # get '/users/new' do
+  #   erb :signup
+  # end
 
   # SIGN UP ROUTE
   post '/users/new' do
@@ -108,9 +108,9 @@ class Makersbnb < Sinatra::Base
   end
 
   # SESSION FOR USER ID
-  get '/sessions/new/login' do
-    erb :login
-  end
+  # get '/sessions/new/login' do
+  #   erb :login
+  # end
 
   # LOGIN ROUTE
   post '/sessions' do
