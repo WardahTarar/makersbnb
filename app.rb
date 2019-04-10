@@ -6,6 +6,7 @@ require './fakeDataGenerator'
 require './src/availability.rb'
 require 'bcrypt'
 require 'json'
+require 'stripe'
 # current_dir = Dir.pwd
 current_dir = Dir.pwd
 

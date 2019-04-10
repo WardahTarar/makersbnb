@@ -10,6 +10,9 @@ gem "activerecord"
 gem 'pg'
 gem 'bcrypt'
 gem 'rerun'
+gem 'faker'
+gem 'json'
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
 
 
