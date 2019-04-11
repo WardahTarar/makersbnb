@@ -16,6 +16,7 @@ module.exports = {
       .setValue("input[name=password]", "12345")
       .click("#submitCreate")
 
+      // sign out
       .waitForElementPresent('#signout',20000, 'Some message here to show while running test')
       .click("#signout")
 
