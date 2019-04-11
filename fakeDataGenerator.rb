@@ -28,7 +28,7 @@ def createFakeListing
       price_per_night: rand(100..500),
       user_id: user[:id],
       available_start_date:
-      Faker::Time.backward(60, :evening),
+      Faker::Time.backward(0, :evening),
       available_end_date: Faker::Time.forward(60, :evening)
     )
   end

@@ -1,3 +1,4 @@
 /tests_output
 chromedriver.log
 /node_modules
+.nyc_output
