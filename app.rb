@@ -139,11 +139,11 @@ class Makersbnb < Sinatra::Base;
       p "entry created"
     end
 
-
+  get '/payments/:user/all'
     # billing search function - returns json object
     # place in get route in future - need to store billing into database
     # transactions table with billing ids and associated user id
-    # p findBilling(billing) 
+    list = findBilling() 
     
   end
 
