@@ -7,6 +7,8 @@ require './src/availability.rb'
 require 'bcrypt'
 require 'json'
 require './src/email_sender.rb'
+require './src/text_sender.rb'
+# current_dir = Dir.pwd
 
 current_dir = Dir.pwd
 
