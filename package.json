@@ -7,8 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "mocha --exit spec/features",
-    "test_with_coverage": "nyc --reporter=text mocha --exit spec/features"
+    "test": "mocha --exit spec/integration",
+    "test_with_coverage": "nyc --reporter=text mocha --exit spec/integration"
   },
   "repository": {
     "type": "git",

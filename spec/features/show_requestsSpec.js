@@ -1,7 +1,7 @@
 module.exports = {
   "User can see their requests": function(browser) {
     browser
-    // sign up
+      // sign up
       .url("localhost:9292/listings/new")
       .click("#signup")
       .setValue("input[name=firstName]", "John")
@@ -11,7 +11,7 @@ module.exports = {
       .click("#submitCreate")
 
       // make a listing
-      .url("localhost:9292/listings/new)
+      .url("localhost:9292/listings/new")
       .setValue("input[name=name]", "3 bed house in Westminster")
       .setValue("input[name=location]", "Westminster")
       .setValue("input[name=city]", "London")
@@ -36,9 +36,8 @@ module.exports = {
 
       // see new request in requst page
       .url("localhost:9292/users/1/requests'")
-      .assert.containsText("3 bed house in Westminster")
+      .assert.containsText("3 bed house in Westminster");
 
-// could be submitCreate here which is button's id
-
+    // could be submitCreate here which is button's id
   }
 };
