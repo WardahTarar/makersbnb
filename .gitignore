@@ -5,3 +5,4 @@ chromedriver.log
 sendgrid.env
 /helper/email_helper_private.rb
 .nyc_output
+package-lock.json
