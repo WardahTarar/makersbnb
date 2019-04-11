@@ -1,3 +1,7 @@
 /tests_output
 chromedriver.log
 /node_modules
+./helper/text_helper.rb
+sendgrid.env
+/helper/email_helper_private.rb
+.nyc_output
