@@ -3,7 +3,7 @@ require './models/listing.rb'
 require './models/user.rb'
 require './src/availability.rb'
 
-describe CheckAvailability do
+xdescribe CheckAvailability do
 
   it 'returns the listings that matches user requirements' do
     user = User.create(first_name: "James",
