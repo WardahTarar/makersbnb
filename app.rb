@@ -73,6 +73,7 @@ class Makersbnb < Sinatra::Base
   get '/listings/new' do
     # Not needed as @user, if there is a session[:id], it is assigned in the layout
     @user = User.find(session[:id]) if session[:id]
+    p @user
     erb :'/listings/new'
   end
 
@@ -106,7 +107,7 @@ class Makersbnb < Sinatra::Base
   post '/listings/new' do
     @user = User.find(session[:id]) if session[:id]
     email = EmailSender.new
-    p @user.email
+    # p @user.email
 
     listing = Listing.create(
       name: params[:name],
@@ -142,10 +143,6 @@ class Makersbnb < Sinatra::Base
   end
 
   post '/listings/:listing_id/new' do
-<<<<<<< HEAD
-    # p params
-=======
->>>>>>> master
     @listing_id = params[:listing_id]
     @start_date = params[:start_date]
     @user_id = session[:id]
@@ -155,12 +152,14 @@ class Makersbnb < Sinatra::Base
       listing_id: @listing_id,
       user_id: @user_id
     )
-    
-    p @user
-    p'----'
-    p @user.first_name
     email = EmailSender.new
     email.request_made_by_guest(@user.first_name, @user.email)
+
+    p Listing.find(@listing_id)
+    @user_host = Listing.find(@listing_id.user_id)
+
+    email = EmailSender.new
+    email.request_received_by_host(@user_host.first_name, @user_host.email)
 
     redirect '/index'
   end
