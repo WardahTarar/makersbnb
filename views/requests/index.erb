@@ -10,14 +10,14 @@
   <h1>Requests</h1>
   <div class="row text-center" style="display:flex; flex-wrap:wrap;"></div>
     <h2>Requests I've made</h2>
-    <% @requests_submitted.each do |x| %>
+    <% @requests_submitted.each do |request| %>
       <div class="card-deck"></div>
           <div class="card" style="margin: 20px;">
               <div class="card-body">
-                  <h5 class="card-title"><%= x.listing.name %></h5>
+                  <h5 class="card-title"><%= request.listing.name %></h5>
                   <ul class="list-group list-group-flush">
-                      <li class="list-group-item"> <%= x.start_date.strftime("%d/%m/%Y") %> </li>
-                      <li class="list-group-item">Status: <%= x.approved ? "Confirmed" : "Pending" %> </li>
+                      <li class="list-group-item"> <%= request.start_date.strftime("%d/%m/%Y") %> </li>
+                      <li class="list-group-item">Status: <%= request.approved ? "Confirmed" : "Pending" %> </li>
                   </ul>
               </div>
           </div>
@@ -25,17 +25,23 @@
     <% end %>
 
     <h2>Requests I've received</h2>
-     <% @requests_received.each do |x| %>
+    <input type="hidden" id="userID" value="<%=@user.id%>">
+     <% @requests_received.each do |request| %>
       <div class="card-deck">
         <div class="card" style="margin: 20px;">
             <div class="card-body">
-                <h5 class="card-title"> <%= x.listing.name %></h5>
+                <h5 class="card-title"> <%= request.listing.name %></h5>
 
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"> <%= x.start_date.strftime("%d/%m/%Y") %> </li>
-                    <li class="list-group-item">Status: <%= x.approved ? "Confirmed" : "Pending" %></li>
-
+                    <li class="list-group-item"> <%= request.start_date.strftime("%d/%m/%Y") %> </li>
+                    <li class="list-group-item">Status:
+                    
+                    </li>
+                    <input type="hidden" id="requestID" value="<%=request.id%>">
+                    <a href='/users/<%=@user.id%>/requests/<%=request.id%>' class="card-link">View Request</a>
                 </ul>
+
+
             </div>
         </div>
     </div>

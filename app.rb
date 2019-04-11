@@ -6,6 +6,7 @@ require './fakeDataGenerator'
 require './src/availability.rb'
 require 'bcrypt'
 require 'json'
+# require 'controller/helpers'
 # current_dir = Dir.pwd
 current_dir = Dir.pwd
 
@@ -20,6 +21,7 @@ class Makersbnb < Sinatra::Base
   enable :sessions
 
   get '/' do
+    # createFakeListing
     redirect '/index'
   end
 
@@ -124,11 +126,10 @@ class Makersbnb < Sinatra::Base
     @end_date = @listing[:available_end_date].strftime("%Y-%m-%d")
     @user_id = session[:id]
     @user = User.find(@user_id) if @user_id
-    erb :"spaces/spaces"
+    erb :"listings/select"
   end
 
   post '/listings/:listing_id/new' do
-    p params
     @listing_id = params[:listing_id]
     @start_date = params[:start_date]
     @user_id = session[:id]
@@ -159,7 +160,7 @@ class Makersbnb < Sinatra::Base
   end
 
   # Alex
-  get '/users/:user_id/requests' do 
+  get '/users/:user_id/requests' do
   #shows all requests for the user
   @user_id = params[:user_id]
   @user = User.find(@user_id) if @user_id
@@ -168,18 +169,45 @@ class Makersbnb < Sinatra::Base
   @requests_received =[]
   @hostslistings.each do |listing|
     @requests_received_per_listing = Request.where(listing_id: listing.id) if Request.where(listing_id: listing.id) != nil
-    @requests_received_per_listing.each do |x|
-    @requests_received <<  x
-    end 
-  end 
+    @requests_received_per_listing.each do |request|
+    @requests_received << request
+    end
+  end
   erb :'requests/index'
-  end 
+  end
 
-  
+  # RESERVATIONS
+  get '/users/:user_id/requests/:request_id' do
+    @user_id = params[:user_id]
+    @user = User.find(@user_id) if @user_id
+    @request_id = params[:request_id]
+    @request_ = Request.find(@request_id) if @request_id
+    @booking_date = @request_.start_date
+    @guest_id = @request_[:user_id]
+    @guest = User.find(@guest_id) if @guest_id
+    @listing_id = @request_[:listing_id]
+    @listing = Listing.find(@listing_id) if @listing_id
 
+    erb :'reservations/new'
+  end
 
+  post '/users/:user_id/requests/:request_id/decline' do
+    @user_id = params[:user_id]
+    @user = User.find(@user_id) if @user_id
+    @request_id = params[:request_id]
+    @request_ = Request.find(@request_id) if @request_id
+    @request_.approved = false
+    @request_.save
+  end
 
-
+  post '/users/:user_id/requests/:request_id/approve' do
+    @user_id = params[:user_id]
+    @user = User.find(@user_id) if @user_id
+    @request_id = params[:request_id]
+    @request_ = Request.find(@request_id) if @request_id
+    @request_.approved = true
+    @request_.save
+  end
 
   run! if app_file == $PROGRAM_NAME
 end
