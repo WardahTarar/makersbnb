@@ -71,6 +71,8 @@ class Makersbnb < Sinatra::Base
   end
 
   get '/listings/new' do
+    # Not needed as @user, if there is a session[:id], it is assigned in the layout
+    # @user = User.find(session[:id]) if session[:id]
     erb :'/listings/new'
   end
 
@@ -125,16 +127,17 @@ class Makersbnb < Sinatra::Base
   get '/listings/:listing_id/new' do
     @listing_id = params[:listing_id]
     @listing = Listing.find(@listing_id)
-    @start_date = @listing[:available_start_date].strftime("%Y-%m-%d")
-    @end_date = @listing[:available_end_date].strftime("%Y-%m-%d")
+    @start_date = [@listing[:available_start_date], Date.today].max.strftime('%Y-%m-%d')
+    @end_date = @listing[:available_end_date].strftime('%Y-%m-%d')
     @user_id = session[:id]
     @user = User.find(@user_id) if @user_id
     erb :"spaces/spaces"
   end
 
   post '/listings/:listing_id/new' do
+    p params
     @listing_id = params[:listing_id]
-    @start_date = params[:startDate]
+    @start_date = params[:start_date]
     @user_id = session[:id]
     @user = User.find(@user_id) if @user_id
     Request.create(
@@ -150,6 +153,7 @@ class Makersbnb < Sinatra::Base
 
     if BCrypt::Password.new(user[:password_digest]) == params[:password]
       session[:id] = user[:id]
+
       redirect '/index'
     else
       redirect '/index'
@@ -160,6 +164,24 @@ class Makersbnb < Sinatra::Base
   post '/sessions/destroy' do
     session.clear
     redirect '/index'
+  end
+
+  # Alex
+  get '/users/:user_id/requests' do
+    # shows all requests for the user
+    @user_id = params[:user_id]
+    @user = User.find(@user_id) if @user_id
+    @requests_submitted = Request.where(user_id: params[:user_id])
+    @hostslistings = Listing.where(user_id: @user_id)
+    @requests_received = []
+
+    @hostslistings.each do |listing|
+      @requests_received_per_listing = Request.where(listing_id: listing.id) if Request.where(listing_id: listing.id) != nil
+      @requests_received_per_listing.each do |x|
+        @requests_received << x
+      end
+    end
+    erb :'requests/index'
   end
 
   run! if app_file == $PROGRAM_NAME

@@ -25,6 +25,13 @@ describe('Request', function() {
     expect(request.endDate).toEqual(nextDay);
   });
 
+  // alex
+  
+
+
+
+
+
   describe('#returnJSON', function () {
     it("returns a JSON object with dates, listing, guest", function () {
       expect(request.returnJSON()).toEqual({
