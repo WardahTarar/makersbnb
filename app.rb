@@ -219,8 +219,8 @@ class Makersbnb < Sinatra::Base
     @request_.approved = true
     @request_.save
     Reservation.create(
-        start_date: @request_.start_date,
-        request_id: @request_.id,
+      start_date: @request_.start_date,
+      request_id: @request_.id
     )
   end
 
