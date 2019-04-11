@@ -20,8 +20,14 @@ class Makersbnb < Sinatra::Base
 
   enable :sessions
 
+  # Route for creating fake data
+  get '/add_fake_date' do
+    createFakeListing
+    redirect '/index'
+  end
+
+  # Bad routes redirect to index
   get '/' do
-    # createFakeListing
     redirect '/index'
   end
 
@@ -152,7 +158,6 @@ class Makersbnb < Sinatra::Base
 
     if BCrypt::Password.new(user[:password_digest]) == params[:password]
       session[:id] = user[:id]
-
       redirect '/index'
     else
       redirect '/index'
@@ -167,19 +172,19 @@ class Makersbnb < Sinatra::Base
 
   # Alex
   get '/users/:user_id/requests' do
-  #shows all requests for the user
-  @user_id = params[:user_id]
-  @user = User.find(@user_id) if @user_id
-  @requests_submitted = Request.where(user_id: params[:user_id])
-  @hostslistings = Listing.where(user_id: @user_id)
-  @requests_received =[]
-  @hostslistings.each do |listing|
-    @requests_received_per_listing = Request.where(listing_id: listing.id) if Request.where(listing_id: listing.id) != nil
-    @requests_received_per_listing.each do |request|
-    @requests_received << request
+    # shows all requests for the user
+    @user_id = params[:user_id]
+    @user = User.find(@user_id) if @user_id
+    @requests_submitted = Request.where(user_id: params[:user_id])
+    @hostslistings = Listing.where(user_id: @user_id)
+    @requests_received = []
+    @hostslistings.each do |listing|
+      @requests_received_per_listing = Request.where(listing_id: listing.id) if Request.where(listing_id: listing.id) != nil
+      @requests_received_per_listing.each do |request|
+        @requests_received << request
+      end
     end
-  end
-  erb :'requests/index'
+    erb :'requests/index'
   end
 
   # RESERVATIONS
@@ -214,9 +219,13 @@ class Makersbnb < Sinatra::Base
     @request_.approved = true
     @request_.save
     Reservation.create(
-        start_date: @request_.start_date,
-        request_id: @request_.id,
+      start_date: @request_.start_date,
+      request_id: @request_.id
     )
+  end
+
+  get '/*' do
+    redirect '/index'
   end
 
   run! if app_file == $PROGRAM_NAME
