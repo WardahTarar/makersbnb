@@ -7,7 +7,12 @@ require './src/availability.rb'
 require 'bcrypt'
 require 'json'
 require './src/email_sender.rb'
+<<<<<<< HEAD
 
+=======
+require './src/text_sender.rb'
+# current_dir = Dir.pwd
+>>>>>>> master
 current_dir = Dir.pwd
 
 Dir["#{current_dir}/models/*.rb"].each { |file| require file }
@@ -214,6 +219,9 @@ class Makersbnb < Sinatra::Base
     @request_ = Request.find(@request_id) if @request_id
     @request_.approved = false
     @request_.save
+
+    text = TextSender.new
+    text.request_denied
   end
 
   post '/users/:user_id/requests/:request_id/approve' do
@@ -227,6 +235,9 @@ class Makersbnb < Sinatra::Base
       start_date: @request_.start_date,
       request_id: @request_.id
     )
+
+    text = TextSender.new
+    text.request_accepted
   end
 
   get '/*' do
