@@ -6,7 +6,22 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
-     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/src/signoutInterface.js"></script>
+    <script src="/src/signupInterface.js"></script>
+    <script src="/src/listingInterface.js"></script>
+    <script src="/src/loginInterface.js"></script>
+    <script src="/src/loginInterface.js"></script>
+    <script src="/src/filterInterface.js"></script>
+    <script src="/src/indexInterface.js"></script>
+    <script src="/src/bookingInterface.js"></script>
+    <script src="/src/requestsInterface.js"></script>
+    <script src="/src/reservationInterface.js"></script>
+    <script src="/src/user.js"></script>
+    <script src="/src/listing.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="icon" href="/images/favicon.ico">
     <title>Makers BnB</title>
 </head>
@@ -22,17 +37,21 @@
         <% @user = User.find(session[:id]) if session[:id] %>
 
         <span class = "float-left"><h2 id="personalMess"> <%= "Welcome #{@user.first_name}" %> </h2> </span>
-        
+
         <h2 id="welcome-message-user" class="float-right">
-          <button id="signout" name="signoutName" class="btn btn-danger">Sign out</button>
+        <button id="signout" name="signout" class="btn btn-danger">My reservations</button>
+          <button id="signout" name="signout" class="btn btn-danger">My requests</button>
+          <button id="signout" name="signout" class="btn btn-danger">Sign out</button>
           <button id="listing" name = "listing" class="btn btn-secondary">Add Listing</button>
           <button id="search" name = "search" class="btn btn-secondary">Search</button>
+          <button id="bookings" name = "bookings" class="btn btn-secondary">Bookings</button>
+          <input type="hidden" id="userID" value="<%=@user.id%>">
         </h2>
 
         <% else %>
 
         <span class = "float-left"><h2 id="generalMess"> <%= "Welcome to MakersBNB"%></h2> </span>
-        
+
         <h2 id="welcome-general" class="float-right">
 
           <button id="signup" name="signup" class="btn btn-danger" data-toggle="modal"
@@ -77,7 +96,7 @@
 
         <div id = "alertMessage">
         </div>
-        
+
       </div>
     </div>
   </div>
@@ -116,7 +135,7 @@
         </div>
         <div id = "alertMessage">
         </div>
-        
+
       </div>
     </div>
   </div>
@@ -132,7 +151,7 @@
 </div>
 <%# Search form %>
 
-  
+
   <%= yield %>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
@@ -141,7 +160,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
- 
+
   <script src="/src/signoutInterface.js"></script>
   <script src="/src/signupInterface.js"></script>
   <script src="/src/listingInterface.js"></script>
@@ -155,6 +174,6 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-  
+
 </body>
 </html>

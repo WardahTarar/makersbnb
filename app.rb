@@ -21,7 +21,7 @@ class Makersbnb < Sinatra::Base
   enable :sessions
 
   get '/' do
-    createFakeListing
+    # createFakeListing
     redirect '/index'
   end
 
@@ -129,7 +129,7 @@ class Makersbnb < Sinatra::Base
   #   erb :login
   # end
 
-  # LOGIN ROUTE
+  # MAKE BOOKINGS
 
   get '/listings/:listing_id/new' do
     @listing_id = params[:listing_id]
@@ -138,11 +138,14 @@ class Makersbnb < Sinatra::Base
     @end_date = @listing[:available_end_date].strftime('%Y-%m-%d')
     @user_id = session[:id]
     @user = User.find(@user_id) if @user_id
-    erb :"spaces/spaces"
+    erb :"listings/select"
   end
 
   post '/listings/:listing_id/new' do
+<<<<<<< HEAD
     # p params
+=======
+>>>>>>> master
     @listing_id = params[:listing_id]
     @start_date = params[:start_date]
     @user_id = session[:id]
@@ -182,20 +185,55 @@ class Makersbnb < Sinatra::Base
 
   # Alex
   get '/users/:user_id/requests' do
-    # shows all requests for the user
+  #shows all requests for the user
+  @user_id = params[:user_id]
+  @user = User.find(@user_id) if @user_id
+  @requests_submitted = Request.where(user_id: params[:user_id])
+  @hostslistings = Listing.where(user_id: @user_id)
+  @requests_received =[]
+  @hostslistings.each do |listing|
+    @requests_received_per_listing = Request.where(listing_id: listing.id) if Request.where(listing_id: listing.id) != nil
+    @requests_received_per_listing.each do |request|
+    @requests_received << request
+    end
+  end
+  erb :'requests/index'
+  end
+
+  # RESERVATIONS
+  get '/users/:user_id/requests/:request_id' do
     @user_id = params[:user_id]
     @user = User.find(@user_id) if @user_id
-    @requests_submitted = Request.where(user_id: params[:user_id])
-    @hostslistings = Listing.where(user_id: @user_id)
-    @requests_received = []
+    @request_id = params[:request_id]
+    @request_ = Request.find(@request_id) if @request_id
+    @booking_date = @request_.start_date
+    @guest_id = @request_[:user_id]
+    @guest = User.find(@guest_id) if @guest_id
+    p "XXXXXXXXXXXXXXX"
+    p @guest.first_name
+    p "XXXXXXXXXXXXXXX"
+    @listing_id = @request_[:listing_id]
+    @listing = Listing.find(@listing_id) if @listing_id
 
-    @hostslistings.each do |listing|
-      @requests_received_per_listing = Request.where(listing_id: listing.id) if Request.where(listing_id: listing.id) != nil
-      @requests_received_per_listing.each do |x|
-        @requests_received << x
-      end
-    end
-    erb :'requests/index'
+    erb :'reservations/new'
+  end
+
+  post '/users/:user_id/requests/:request_id/decline' do
+    @user_id = params[:user_id]
+    @user = User.find(@user_id) if @user_id
+    @request_id = params[:request_id]
+    @request_ = Request.find(@request_id) if @request_id
+    @request_.approved = false
+    @request_.save
+  end
+
+  post '/users/:user_id/requests/:request_id/approve' do
+    @user_id = params[:user_id]
+    @user = User.find(@user_id) if @user_id
+    @request_id = params[:request_id]
+    @request_ = Request.find(@request_id) if @request_id
+    @request_.approved = true
+    @request_.save
   end
 
   run! if app_file == $PROGRAM_NAME
