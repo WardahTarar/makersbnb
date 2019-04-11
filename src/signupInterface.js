@@ -1,6 +1,14 @@
 $(document).ready(function() {
   var user = new User();
 
+  $("#signup").click(function() {
+    $("input[name=firstName], text").val("");
+    $("input[name=lastName], text").val("");
+    $("input[name=email], email").val("");
+    $("input[name=password], password").val("");
+    $("#alert").remove();
+  });
+
   $("#submitCreate").click(function() {
     let firstName = $("#firstName").val();
     let lastName = $("#lastName").val();
@@ -17,7 +25,7 @@ function checkUserFields(newUser) {
   for (var key in newUser) {
     if (newUser.hasOwnProperty(key)) {
       if (newUser[key] == "") {
-        $("#alertMessage").html(
+        $("#alertMessageSignUp").html(
           "<div class='alert', id='alert'> Please fill in all the fields </div>"
         );
         return;
@@ -26,7 +34,7 @@ function checkUserFields(newUser) {
   }
 
   if (isEmail(newUser.email) == false) {
-    $("#alertMessage").html(
+    $("#alertMessageSignUp").html(
       "<div class='alert', id='alert'> Please check the email address format </div>"
     );
     return;

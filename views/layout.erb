@@ -26,7 +26,6 @@
         
      
         <h2 id="personalMess"> <%= "Welcome #{@user.first_name}" %> </h2> 
-      
         
         </span>
 
@@ -66,7 +65,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header text-center">
-          <h4 class="modal-title w-100 font-weight-bold" id = "titleSignIn">Sign in</h4>
+          <h4 class="modal-title w-100 font-weight-bold" id = "titleSignIn">Log in</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -74,12 +73,12 @@
         <div class="modal-body mx-3">
           <div class="md-form mb-5">
             <i class="fas fa-envelope prefix grey-text"></i>
-            <input type="email" id="emailLogIn" class="form-control validate" placeholder="email">
+            <input type="email" name="emailLogIn" id="emailLogIn" class="form-control validate" placeholder="email">
           </div>
 
           <div class="md-form mb-4">
             <i class="fas fa-lock prefix grey-text"></i>
-            <input type="password" id="passwordLogIn" class="form-control validate" placeholder="password">
+            <input type="password" name = "passwordLogIn" id="passwordLogIn" class="form-control validate" placeholder="password">
           </div>
 
         </div>
@@ -87,7 +86,7 @@
           <button type="button" id="loginSubmit" class="btn btn-danger">Login</button>
         </div>
 
-        <div id = "alertMessage">
+        <div id = "alertMessageLogin">
         </div>
 
       </div>
@@ -127,7 +126,7 @@
           <button id="submitCreate" class="btn btn-danger">Sign up</button>
         </div>
 
-        <div id = "alertMessage">
+        <div id = "alertMessageSignUp">
         
         </div>
 
@@ -158,7 +157,6 @@
   <script src="/src/signoutInterface.js"></script>
   <script src="/src/signupInterface.js"></script>
   <script src="/src/listingInterface.js"></script>
-  <script src="/src/loginInterface.js"></script>
   <script src="/src/loginInterface.js"></script>
   <script src="/src/filterInterface.js"></script>
   <script src="/src/indexInterface.js"></script>
