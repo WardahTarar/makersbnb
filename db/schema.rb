@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_10_180300) do
+ActiveRecord::Schema.define(version: 2019_04_11_134900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,18 @@ ActiveRecord::Schema.define(version: 2019_04_10_180300) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["listing_id"], name: "index_availability_on_listing_id"
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.boolean "approved"
+    t.bigint "listing_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listing_id"], name: "index_bookings_on_listing_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
   create_table "listings", force: :cascade do |t|
@@ -36,18 +48,6 @@ ActiveRecord::Schema.define(version: 2019_04_10_180300) do
     t.datetime "available_end_date"
     t.string "description"
     t.index ["user_id"], name: "index_listings_on_user_id"
-  end
-
-  create_table "requests", force: :cascade do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.boolean "approved"
-    t.bigint "listing_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["listing_id"], name: "index_requests_on_listing_id"
-    t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(version: 2019_04_10_180300) do
   end
 
   add_foreign_key "availability", "listings"
+  add_foreign_key "bookings", "listings"
   add_foreign_key "listings", "users"
-  add_foreign_key "requests", "listings"
-  add_foreign_key "reservations", "requests"
+  add_foreign_key "reservations", "bookings", column: "request_id"
   add_foreign_key "transactions", "users"
 end
