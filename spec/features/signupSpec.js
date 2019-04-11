@@ -20,13 +20,10 @@ module.exports = {
       .setValue("input[name=lastName]", "Snow")
       .setValue("input[name=email]", "jonSnow@gmail.com")
       .setValue("input[name=password]", "12345")
-      
-
-
-
       .click("#submitCreate")
-      // .waitForElementVisible("#welcome-message-user")
-      .assert.containsText("#welcome-message-user", "Welcome John")
+
+      .waitForElementVisible("#personalMess")
+      .assert.containsText("#personalMess", "Welcome John")
       .end();
       
   }
