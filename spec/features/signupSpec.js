@@ -13,7 +13,7 @@ module.exports = {
       .waitForElementPresent('#modalRegisterForm',20000, 'Some message here to show while running test')
       .pause(1000)
       .execute(function(){
-      document.querySelector('#submitCreate').click()
+      // document.querySelector('#submitCreate').click()
       })
 
       .setValue("input[name=firstName]", "John")
