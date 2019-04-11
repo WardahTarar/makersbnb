@@ -159,6 +159,8 @@ class Makersbnb < Sinatra::Base
   end
 
   # Alex
+
+
   get '/users/:user_id/requests' do 
   #shows all requests for the user
   @user_id = params[:user_id]
