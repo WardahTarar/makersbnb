@@ -7,6 +7,7 @@ require './src/availability.rb'
 require 'bcrypt'
 require 'json'
 require './stripe'
+
 # current_dir = Dir.pwd
 current_dir = Dir.pwd
 
@@ -116,17 +117,33 @@ class Makersbnb < Sinatra::Base;
   end
 
   # PAYMENT ROUTES
+
+  get '/payments/new' do
+    @user = User.find(session[:id]) if session[:id]
+
+    erb :billing
+  end
+
   post '/payments/new' do
+    user = User.find(session[:id]) if session[:id]
+
     billing = charge(
       params[:amount].to_i, 
-      params[:email]
+      params[:email],
+      params[:name],
+      params[:description]
           )
 
-    Transactions.create(stripe_billing_id: billing, user_id: 1)
+    if billing[:status] == "succeeded"
+      Transactions.create(stripe_billing_id: billing[:id], user_id: user.id)
+      p "entry created"
+    end
+
+
     # billing search function - returns json object
     # place in get route in future - need to store billing into database
     # transactions table with billing ids and associated user id
-    p findBilling(billing) 
+    # p findBilling(billing) 
     
   end
 

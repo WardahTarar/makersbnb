@@ -6,10 +6,14 @@ $(document).ready(function() {
     // let name = $("#customerName").val();
     let amount = $("#amount").val();
     let email = $("#email").val();
+    let name = $("#name").val();
+    let description = $("#listingDesc").val();
 
     let newBilling = billing.createBilling(
       amount,
-      email
+      email,
+      name,
+      description
     );
 
     console.log(newBilling);

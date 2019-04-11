@@ -1,30 +1,32 @@
+require 'dotenv'
+Dotenv.load
 require 'stripe'
 require 'json'
-# Set your secret key: remember to change this to your live secret key in production
-# See your keys here: https://dashboard.stripe.com/account/apikeys
 
-Stripe.api_key = 'sk_test_QjSjtH3lC8RnU8ip7LnpZNBy00nQhVNHIg'
-
+# Set to secret test key
+Stripe.api_key = ENV['SECRET_KEY']
 
 # stripe uses integers, 999 = 9.99, 1000 = 10.00 like pennies
-def charge(amount, receipt_email)
+def charge(amount, email, name, listing_desc)
     charge = Stripe::Charge.create(
         {
         amount: amount,
         currency: 'gbp',
         source: 'tok_visa',
-        receipt_email: receipt_email,
+        receipt_email: email,
+        description: listing_desc
       }
     )
-    return charge[:id]
-  end
-
+    return charge
+end
 
 # find billing based on stripe charge id
 def findBilling(id)
   retreive = Stripe::Charge.retrieve(id)
   billingObj = {
-                  :email => retreive[:receipt_email], 
+                  :email => retreive[:billing_details].email,
+                  :name => retreive[:billing_details].name,
+                  :description => retreive[:description],
                   :amount => retreive[:amount]
                 }.to_json
 end                                
