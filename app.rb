@@ -153,7 +153,6 @@ class Makersbnb < Sinatra::Base
 
     if BCrypt::Password.new(user[:password_digest]) == params[:password]
       session[:id] = user[:id]
-
       redirect '/index'
     else
       redirect '/index'
