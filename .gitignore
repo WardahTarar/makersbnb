@@ -6,3 +6,4 @@ sendgrid.env
 /helper/email_helper_private.rb
 .nyc_output
 /coverage
+package-lock.json
