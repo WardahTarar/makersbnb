@@ -191,6 +191,9 @@ class Makersbnb < Sinatra::Base
     @booking_date = @request_.start_date
     @guest_id = @request_[:user_id]
     @guest = User.find(@guest_id) if @guest_id
+    p "XXXXXXXXXXXXXXX"
+    p @guest.first_name
+    p "XXXXXXXXXXXXXXX"
     @listing_id = @request_[:listing_id]
     @listing = Listing.find(@listing_id) if @listing_id
 

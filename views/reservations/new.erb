@@ -10,11 +10,13 @@
 
     <div class="form">
 
-      <h1 id="requestMessage"><%=@guest[:name]%> requested your place for <%=@request[:start_date]%></h1>
+      <h1 id="requestMessage"><%=@guest.first_name%> requested your place</h1>
 
       <p id="listingLocation">This space is in <%=@listing[:location]%>, <%=@listing[:city]%></p>
 
       <p id="listingDescription"><%=@listing[:description]%></p>
+
+      <p>They would like to stay at your place on <%=@request_.start_date.strftime("%d/%m/%Y")%></p>
 
       <p>Would you like to approve this booking?</p>
 
