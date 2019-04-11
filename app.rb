@@ -20,8 +20,14 @@ class Makersbnb < Sinatra::Base
 
   enable :sessions
 
+  # Route for creating fake data
+  get '/add_fake_date' do
+    createFakeListing
+    redirect '/index'
+  end
+
+  # Bad routes redirect to index
   get '/' do
-    # createFakeListing
     redirect '/index'
   end
 
@@ -166,19 +172,19 @@ class Makersbnb < Sinatra::Base
 
   # Alex
   get '/users/:user_id/requests' do
-  #shows all requests for the user
-  @user_id = params[:user_id]
-  @user = User.find(@user_id) if @user_id
-  @requests_submitted = Request.where(user_id: params[:user_id])
-  @hostslistings = Listing.where(user_id: @user_id)
-  @requests_received =[]
-  @hostslistings.each do |listing|
-    @requests_received_per_listing = Request.where(listing_id: listing.id) if Request.where(listing_id: listing.id) != nil
-    @requests_received_per_listing.each do |request|
-    @requests_received << request
+    # shows all requests for the user
+    @user_id = params[:user_id]
+    @user = User.find(@user_id) if @user_id
+    @requests_submitted = Request.where(user_id: params[:user_id])
+    @hostslistings = Listing.where(user_id: @user_id)
+    @requests_received = []
+    @hostslistings.each do |listing|
+      @requests_received_per_listing = Request.where(listing_id: listing.id) if Request.where(listing_id: listing.id) != nil
+      @requests_received_per_listing.each do |request|
+        @requests_received << request
+      end
     end
-  end
-  erb :'requests/index'
+    erb :'requests/index'
   end
 
   # RESERVATIONS
@@ -190,9 +196,9 @@ class Makersbnb < Sinatra::Base
     @booking_date = @request_.start_date
     @guest_id = @request_[:user_id]
     @guest = User.find(@guest_id) if @guest_id
-    p "XXXXXXXXXXXXXXX"
+    p 'XXXXXXXXXXXXXXX'
     p @guest.first_name
-    p "XXXXXXXXXXXXXXX"
+    p 'XXXXXXXXXXXXXXX'
     @listing_id = @request_[:listing_id]
     @listing = Listing.find(@listing_id) if @listing_id
 
@@ -215,6 +221,10 @@ class Makersbnb < Sinatra::Base
     @request_ = Request.find(@request_id) if @request_id
     @request_.approved = true
     @request_.save
+  end
+
+  get '/*' do
+    redirect '/index'
   end
 
   run! if app_file == $PROGRAM_NAME
