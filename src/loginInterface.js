@@ -2,7 +2,6 @@ $(document).ready(function() {
   $("#loginSubmit").click(function() {
     let email = $("#emailLogIn").val();
     let password = $("#passwordLogIn").val();
-    console.log(email);
     checkUserInput(email, password);
   });
 

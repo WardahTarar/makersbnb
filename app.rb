@@ -20,6 +20,7 @@ class Makersbnb < Sinatra::Base
   enable :sessions
 
   get '/' do
+    createFakeListing
     redirect '/index'
   end
 

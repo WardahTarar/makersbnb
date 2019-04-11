@@ -9,18 +9,20 @@ describe("contact page", function() {
 });
 
 describe("Log in", function() {
+  this.timeout(15000);
   before(function() {
     this.browser = new Browser({ site: "http://localhost:9292" });
   });
 
-  beforeEach(function(done) {
+  before(function(done) {
     this.browser.visit("/", done);
   });
 
-  it("should have a log in button", function() {
+  it("should have a log in button", function(done) {
     assert.ok(this.browser.success);
     assert.equal(this.browser.text("#generalMess"), "Welcome to MakersBNB");
     assert.equal(this.browser.text("#loginBtn"), "Log in");
+    done();
   });
 
   //USER ALREADY EXISTS
@@ -32,11 +34,9 @@ describe("Log in", function() {
       assert.equal(browser.text("#titleSignIn"), "Sign in");
       browser.fill("#emailLogIn", "JohnSnow@GOT.com");
       browser.fill("#passwordLogIn", "Wolf");
-      browser.pressButton("#loginSubmit", function() {
-        assert.ok(browser.success);
-      });
-      done();
+      browser.pressButton("#loginSubmit");
     });
+    done();
   });
 
   describe("user sees a message to fill in all details to log in", function() {
@@ -44,11 +44,11 @@ describe("Log in", function() {
       this.browser = new Browser({ site: "http://localhost:9292" });
     });
 
-    beforeEach(function(done) {
+    before(function(done) {
       this.browser.visit("/", done);
     });
 
-    it("attempt to log in with no user and pass", function() {
+    it("attempt to log in with no user and pass", function(done) {
       var browser = this.browser;
 
       browser.pressButton("#loginBtn");
@@ -57,11 +57,12 @@ describe("Log in", function() {
         browser.text("#alert"),
         "Please fill in all the fields to log in"
       );
+      done();
     });
 
-    it("attempt to log in with bad email", function() {
+    it("attempt to log in with bad email", function(done) {
       var browser = this.browser;
-      assert.ok(browser.success);
+
       browser.pressButton("#loginBtn", function(error) {
         browser.fill("#emailLogIn", "Bad email");
         browser.pressButton("#loginSubmit");
@@ -69,65 +70,8 @@ describe("Log in", function() {
           browser.text("#alert"),
           "Please check the email address format"
         );
+        done();
       });
     });
   });
-
-  // it("should refuse empty fields when trying to log in", function(done) {
-  //   var browser = this.browser;
-  //   browser.pressButton("signup", function(error) {
-  //     if (error) return done(error);
-  //     browser.pressButton("#submitCreate");
-  //     assert.equal(browser.text("#alert"), "Please fill in all the fields");
-  //     done();
-  //   });
-  // });
-
-  // describe("sign up form", function() {
-  //   before(function() {
-  //     this.browser = new Browser({ site: "http://localhost:9292" });
-  //   });
-
-  //   before(function(done) {
-  //     this.browser.visit("/", done);
-  //   });
-
-  //   it("should refuse partial fields when signing up", function(done) {
-  //     var browser = this.browser;
-  //     browser.pressButton("signup", function(error) {
-  //       if (error) return done(error);
-  //       browser.fill("firstName", "John");
-  //       browser.pressButton("#submitCreate");
-  //       assert.equal(browser.text("#alert"), "Please fill in all the fields");
-  //       done();
-  //     });
-  //   });
-  // });
-
-  // describe("sign up form", function() {
-  //   before(function() {
-  //     this.browser = new Browser({ site: "http://localhost:9292" });
-  //   });
-
-  //   before(function(done) {
-  //     this.browser.visit("/", done);
-  //   });
-
-  //   it("should refuse invalid emails when signing up", function(done) {
-  //     var browser = this.browser;
-  //     browser.pressButton("signup", function(error) {
-  //       if (error) return done(error);
-  //       browser.fill("firstName", "John");
-  //       browser.fill("lastName", "Snow");
-  //       browser.fill("email", "Not an email");
-  //       browser.fill("password", "Wolf");
-  //       browser.pressButton("#submitCreate");
-  //       assert.equal(
-  //         browser.text("#alert"),
-  //         "Please check the email address format"
-  //       );
-  //       done();
-  //     });
-  //   });
-  // });
 });
