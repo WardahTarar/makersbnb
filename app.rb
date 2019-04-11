@@ -6,7 +6,7 @@ require './fakeDataGenerator'
 require './src/availability.rb'
 require 'bcrypt'
 require 'json'
-# require './src/email_sender.rb'
+require './src/email_sender.rb'
 
 current_dir = Dir.pwd
 
@@ -54,10 +54,13 @@ class Makersbnb < Sinatra::Base
       email: params[:email],
       password_digest: encrypted_password
     )
-    p user
+  
     session[:id] = user[:id]
-    email = EmailSender.new
-    email.sign_up(params[:firstName], params[:email])
+
+    # if params[:email]
+    #   email = EmailSender.new
+    #   email.sign_up(params[:firstName], params[:email])
+    # end
 
     redirect '/index'
   end
