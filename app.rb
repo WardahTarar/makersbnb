@@ -7,7 +7,7 @@ require './src/availability.rb'
 require 'bcrypt'
 require 'json'
 # require './src/email_sender.rb'
-# current_dir = Dir.pwd
+
 current_dir = Dir.pwd
 
 Dir["#{current_dir}/models/*.rb"].each { |file| require file }
@@ -47,15 +47,17 @@ class Makersbnb < Sinatra::Base
   # SIGN UP ROUTE
   post '/users/new' do
     encrypted_password = BCrypt::Password.create(params[:password])
+
     user = User.create(
       first_name: params[:firstName],
       last_name: params[:lastName],
       email: params[:email],
       password_digest: encrypted_password
     )
+    p user
+    session[:id] = user[:id]
     email = EmailSender.new
     email.sign_up(params[:firstName], params[:email])
-    session[:id] = user[:id]
 
     redirect '/index'
   end
