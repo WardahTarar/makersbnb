@@ -6,7 +6,7 @@ require './fakeDataGenerator'
 require './src/availability.rb'
 require 'bcrypt'
 require 'json'
-require './src/email_sender.rb'
+# require './src/email_sender.rb'
 # current_dir = Dir.pwd
 current_dir = Dir.pwd
 
@@ -191,9 +191,6 @@ class Makersbnb < Sinatra::Base
     @booking_date = @request_.start_date
     @guest_id = @request_[:user_id]
     @guest = User.find(@guest_id) if @guest_id
-    p "XXXXXXXXXXXXXXX"
-    p @guest.first_name
-    p "XXXXXXXXXXXXXXX"
     @listing_id = @request_[:listing_id]
     @listing = Listing.find(@listing_id) if @listing_id
 
@@ -216,6 +213,10 @@ class Makersbnb < Sinatra::Base
     @request_ = Request.find(@request_id) if @request_id
     @request_.approved = true
     @request_.save
+    Reservation.create(
+        start_date: @request_.start_date,
+        request_id: @request_.id,
+    )
   end
 
   run! if app_file == $PROGRAM_NAME
