@@ -72,7 +72,7 @@ class Makersbnb < Sinatra::Base
 
   get '/listings/new' do
     # Not needed as @user, if there is a session[:id], it is assigned in the layout
-    # @user = User.find(session[:id]) if session[:id]
+    @user = User.find(session[:id]) if session[:id]
     erb :'/listings/new'
   end
 
@@ -104,6 +104,10 @@ class Makersbnb < Sinatra::Base
   # FILTERING ROUTES END
 
   post '/listings/new' do
+    @user = User.find(session[:id]) if session[:id]
+    email = EmailSender.new
+    p @user.email
+
     listing = Listing.create(
       name: params[:name],
       location: params[:location],
@@ -113,7 +117,10 @@ class Makersbnb < Sinatra::Base
       available_start_date: params[:startDate],
       available_end_date: params[:endDate],
       description: params[:description]
-    )
+      )
+
+      email.new_listing(@user.first_name, @user.email)
+
     redirect '/index'
   end
 
@@ -135,7 +142,7 @@ class Makersbnb < Sinatra::Base
   end
 
   post '/listings/:listing_id/new' do
-    p params
+    # p params
     @listing_id = params[:listing_id]
     @start_date = params[:start_date]
     @user_id = session[:id]
@@ -145,12 +152,19 @@ class Makersbnb < Sinatra::Base
       listing_id: @listing_id,
       user_id: @user_id
     )
+    
+    p @user
+    p'----'
+    p @user.first_name
+    email = EmailSender.new
+    email.request_made_by_guest(@user.first_name, @user.email)
+
     redirect '/index'
   end
 
   post '/sessions' do
     user = User.find_by(email: params[:email]) # email must be unique
-
+    # p user.first_name
     if BCrypt::Password.new(user[:password_digest]) == params[:password]
       session[:id] = user[:id]
 
