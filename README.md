@@ -178,16 +178,3 @@ Now, simply place the command nyc in front of your existing test command, for ex
 **How to run:**
 `npm run test` - for running tests withouth seeing the coverage
 `npm run test_with_coverage` - for running tests withouth seeing the coverage
-
-
-
-# problems faced
-------
-
-### merging and pulling when there is sensitive information.
-- we used  private file which was downloaded to each person's laptops and then put into the folder where it is included in gitignore. This way it will not be exposed on github.
-
-
-
-### alot of conflicts when merging package-lock.json
-

@@ -1,6 +1,6 @@
 require 'sendgrid-ruby'
-# require './helper/email_helper.rb'
-require './helper/email_helper_private.rb'
+require './helper/email_helper.rb'
+# require './helper/email_helper_private.rb'
 include SendGrid
 
 class EmailSender
