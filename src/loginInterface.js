@@ -6,20 +6,20 @@ $(document).ready(function() {
   });
 
   $("#loginBtn").click(function() {
-    $("input[name=email], email").val("");
-    $("input[name=password], password").val("");
-    $("#alertMessage").html("");
+    $("input[name=emailLogIn], email").val("");
+    $("input[name=passwordLogIn], password").val("");
+    $("#alert").remove();
   });
 });
 
 function checkUserInput(email, password) {
   if (email == "" && password == "") {
-    $("#alertMessage").html(
+    $("#alertMessageLogin").html(
       "<div class='alert', id='alert'> Please fill in all the fields to log in </div>"
     );
     return;
   } else if (isEmail(email) == false) {
-    $("#alertMessage").html(
+    $("#alertMessageLogin").html(
       "<div class='alert', id='alert'> Please check the email address format </div>"
     );
     return;

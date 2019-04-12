@@ -1,15 +1,10 @@
-// var popupCommand = {
-//   popupCheck:function(){
-//  return this.waitForElementVisible('submitCreate', 5000)
-//    .click('submitCreate', isPresent)
-//    .click('submitCreate', isPresent)
-//   }
-
 module.exports = {
-  "User can sign up": function(browser) {
+  "User can log in": function(browser) {
     browser
+
+    // sign up first
       .url("localhost:9292/")
-      .click("#signup")  
+      .click("#signup")
       .waitForElementPresent('#modalRegisterForm',20000, 'Some message here to show while running test')
       .pause(1000)
       .execute(function(){
@@ -21,9 +16,23 @@ module.exports = {
       .setValue("input[name=password]", "12345")
       .click("#submitCreate")
 
+      // sign out
+      .waitForElementPresent('#signout',20000, 'Some message here to show while running test')
+      .click("#signout")
+
+
+    // log in
+      .click("#loginBtn")
+      .waitForElementPresent('#modalLoginForm',20000, 'wait...')
+      .pause(1000)
+      .execute(function(){
+      })
+
+      .setValue("input[id=emailLogIn]", "jonSnow@gmail.com")
+      .setValue("input[id=passwordLogIn]", "12345")
+      .click("#loginSubmit")
       .waitForElementVisible("#personalMess")
       .assert.containsText("#personalMess", "Welcome John")
       .end();
-      
   }
 };

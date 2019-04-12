@@ -31,7 +31,7 @@ def createFakeListing
   )
 
   hosts.each do |host|
-    50.times do |_i|
+    5.times do |_i|
       Listing.create(
         name: 'Entire flat 2BD',
         location: Faker::Address.street_address,
@@ -63,12 +63,12 @@ def createFakeListing
   Request.create(
     start_date: '2019-04-17 12:12:12',
     listing_id: 1,
-    user_id: 2
+    user_id: 4
   )
 
   guests.each do |guest|
-    20.times do
-      listing_id = rand(1..150)
+    2.times do
+      listing_id = rand(1..15)
       Request.create(
         start_date: Listing.find(listing_id)[:available_start_date],
         # between(Listing.find(listing_id)[:available_start_date], Listing.find(listing_id)[:available_end_date]),

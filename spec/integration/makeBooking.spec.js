@@ -24,7 +24,7 @@ describe("Log in", function() {
 
     browser.pressButton("#loginBtn", function(error) {
       assert.ok(browser.success);
-      assert.equal(browser.text("#titleSignIn"), "Log in");
+      assert.equal(browser.text("#titleSignIn"), "Sign in");
       browser.fill("#emailLogIn", "JohnSnow@GOT.com");
       browser.fill("#passwordLogIn", "Wolf");
       browser.pressButton("#loginSubmit");
