@@ -56,7 +56,7 @@ class Makersbnb < Sinatra::Base
       email: params[:email],
       password_digest: encrypted_password
     )
-  
+
     session[:id] = user[:id]
 
     # if params[:email]
@@ -233,8 +233,8 @@ class Makersbnb < Sinatra::Base
       request_id: @request_.id
     )
 
-    text = TextSender.new
-    text.request_accepted
+    # text = TextSender.new
+    # text.request_accepted
   end
 
   get '/*' do
