@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Is this the space for you?</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
+  </head>
+
+  <body>
+
+    <div class="form">
+
+      <h1 id="listingName"><%=@listing[:name]%></h1>
+
+      <p id="listingLocation">This space is in <%=@listing[:location]%>, <%=@listing[:city]%></p>
+
+      <p id="listingDescription"><%=@listing[:description]%></p>
+
+      <p>When would you like to book?</p>
+
+      <div class="calendar-wrap" id="calendar" size="100px">
+        <input type="input" id="startDate" >
+      </div>
+
+      <% if user_is_logged_in? %>
+        <button type="button" id="request" name="request" class="button button-block">
+          Request
+        </button>
+      <% else %>
+        <button style="color:gray;" type="button" id="notLoggedIn" name="fakeButton" class="button button-block">
+          You are not logged in!
+        </button>
+      <% end %>  
+
+
+      <a href="/index" class="card-link">Go Back</a>
+
+      <input type="hidden" id="listingID" value="<%=@listing_id%>">
+      <input type="hidden" id="listingStartDate" value="<%=@start_date%>">
+      <input type="hidden" id="listingEndDate" value="<%=@end_date%>">
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        var datePicker = flatpickr("#startDate", {
+          minDate: document.getElementById("listingStartDate").value,
+          maxDate: document.getElementById("listingEndDate").value,
+          // disable: ["2019-01-16", "2019-01-18"],
+          dateFormat: "Y-m-d",
+          inline: true,
+          defaultDate: document.getElementById("listingStartDate").value,
+        });
+    </script>
+
+  </body>
+
+</html>

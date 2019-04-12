@@ -4,15 +4,15 @@ $(function (){
   $.ajax({
     type: 'GET',
     url: 'http://localhost:9292/api/listings',
-    success: function(listings) 
+    success: function(listings)
     {
-      $.each(listings, function(i,listing) 
+      $.each(listings, function(i,listing)
       {
-      
+
       $('#card').append(
-        
+
       '<div class="card-deck">' +
-        '<div class="card" style="width: 18rem; margin: 20px;">' +
+        '<div class="card" style="width: 23rem; margin: 70px;">' +
             '<div class="card-body">' +
               '<h5 id = "listingName" class="card-title">'+ listing.name +'</h5>' +
               '<p id = "description" class="card-text">Description:'+ listing.description +'</p>' +
@@ -23,13 +23,13 @@ $(function (){
             '<li id = "location" class="list-group-item">Address:'+ listing.location +'</li>' +
             '<li id = "city" class="list-group-item">'+ listing.city +'</li>' +
             '</ul>' +
-      
-            '<div class="card-body">' + 
-              '<a href="/index" class="card-link">Book</a>' +
+
+            '<div class="card-body">' +
+              '<a href="/listings/' + listing.id + '/new" class="card-link">Book</a>' +
             '</div>' +
 
             '<div class="card-footer">' +
-              '<small class="text-muted">Last updated 3 mins ago</small>' +
+              '<small class="text-muted">'+ listing.updated_at + '</small>' +
             '</div>' +
 
           '</div>' +
@@ -40,13 +40,9 @@ $(function (){
     }
   });
 })
+
 </script>
 
 <div id = 'card' class="row text-center justify-content-center" style="display:flex; flex-wrap:wrap;">
-  
+
 </div>
-
-    
-
-  
- 

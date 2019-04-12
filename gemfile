@@ -17,6 +17,8 @@ gem 'rails'
 gem 'dotenv'
 
 
+gem 'twilio-ruby'
+gem 'sendgrid-ruby'
 
 group :test do
  gem 'capybara'

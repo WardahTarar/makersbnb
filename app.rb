@@ -7,14 +7,15 @@ require './src/availability.rb'
 require 'bcrypt'
 require 'json'
 require './stripe'
-
+require './src/email_sender.rb'
+require './src/text_sender.rb'
 # current_dir = Dir.pwd
+
 current_dir = Dir.pwd
 
 Dir["#{current_dir}/models/*.rb"].each { |file| require file }
 
-class Makersbnb < Sinatra::Base;
-
+class Makersbnb < Sinatra::Base
   include BCrypt
 
   set :root, File.dirname(__FILE__)
@@ -22,8 +23,14 @@ class Makersbnb < Sinatra::Base;
 
   enable :sessions
 
+  # Route for creating fake data
+  get '/add_fake_data' do
+    createFakeListing
+    redirect '/index'
+  end
+
+  # Bad routes redirect to index
   get '/' do
-    # createFakeListing
     redirect '/index'
   end
 
@@ -43,13 +50,19 @@ class Makersbnb < Sinatra::Base;
   # SIGN UP ROUTE
   post '/users/new' do
     encrypted_password = BCrypt::Password.create(params[:password])
+
     user = User.create(
       first_name: params[:firstName],
       last_name: params[:lastName],
       email: params[:email],
       password_digest: encrypted_password
     )
+
     session[:id] = user[:id]
+
+    email = EmailSender.new             #email works for signup
+    email.sign_up(params[:firstName], params[:email])
+
     redirect '/index'
   end
 
@@ -65,15 +78,18 @@ class Makersbnb < Sinatra::Base;
 
     listings.map { |listing| listing['available_start_date'] = listing['available_start_date'].strftime('%d/%m/%Y') }
     listings.map { |listing| listing['available_end_date'] = listing['available_end_date'].strftime('%d/%m/%Y') }
+    listings.map { |listing| listing['updated_at'] = listing['updated_at'].strftime('%d/%m/%Y - %H:%M:%S') }
 
     listings.to_json
   end
 
-  
   get '/listings/new' do
+    # Not needed as @user, if there is a session[:id], it is assigned in the layout
+    @user = User.find(session[:id]) if session[:id]
+    p @user
     erb :'/listings/new'
   end
-  
+
   # FILTERING ROUTES START
   # Click apply in daterange picker
   # 1. Daterange function (filterInterface.js) sends dates to /api/listings/dates
@@ -101,8 +117,8 @@ class Makersbnb < Sinatra::Base;
 
   # FILTERING ROUTES END
 
-
   post '/listings/new' do
+
     listing = Listing.create(
       name: params[:name],
       location: params[:location],
@@ -112,7 +128,12 @@ class Makersbnb < Sinatra::Base;
       available_start_date: params[:startDate],
       available_end_date: params[:endDate],
       description: params[:description]
-    )
+      )
+
+      @user = User.find(session[:id]) if session[:id]
+      email = EmailSender.new                           
+      email.new_listing(@user.first_name, @user.email)    #email works for host
+
     redirect '/index'
   end
 
@@ -151,34 +172,44 @@ class Makersbnb < Sinatra::Base;
     
   end
 
-  # LOGIN ROUTE
+  # MAKE BOOKINGS
 
-  get '/spaces/:listing_id' do
+  get '/listings/:listing_id/new' do
     @listing_id = params[:listing_id]
     @listing = Listing.find(@listing_id)
-    erb :"spaces/spaces"
+    @start_date = [@listing[:available_start_date], Date.today].max.strftime('%Y-%m-%d')
+    @end_date = @listing[:available_end_date].strftime('%Y-%m-%d')
+    @user_id = session[:id]
+    @user = User.find(@user_id) if @user_id
+    erb :"listings/select"
   end
 
-  post '/spaces/:listing_id/create' do
+  post '/listings/:listing_id/new' do
     @listing_id = params[:listing_id]
-    @start_date = Date.today
+    @start_date = params[:start_date]
     @user_id = session[:id]
+    @user = User.find(@user_id) if @user_id
     Request.create(
       start_date: @start_date,
       listing_id: @listing_id,
       user_id: @user_id
     )
-    redirect "/spaces/#{@listing_id}/create"
-  end
+    email = EmailSender.new
+    email.request_made_by_guest(@user.first_name, @user.email) #email works for guest
 
-  get '/spaces/:listing_id/create' do
-    erb :'spaces/success'
-  end
 
+    listing = Listing.find(@listing_id)
+    @user_host = User.find(listing.user_id)
+
+    email = EmailSender.new
+    email.request_received_by_host(@user_host.first_name, @user_host.email) #email works for host
+
+    redirect '/index'
+  end
 
   post '/sessions' do
     user = User.find_by(email: params[:email]) # email must be unique
-
+    # p user.first_name
     if BCrypt::Password.new(user[:password_digest]) == params[:password]
       session[:id] = user[:id]
       redirect '/index'
@@ -193,6 +224,89 @@ class Makersbnb < Sinatra::Base;
     redirect '/index'
   end
 
-  run! if app_file == $PROGRAM_NAME
+  # Alex
+  get '/users/:user_id/requests' do
+    # shows all requests for the user
+    @user_id = params[:user_id]
+    @user = User.find(@user_id) if @user_id
+    @requests_submitted = Request.where(user_id: params[:user_id])
+    @hostslistings = Listing.where(user_id: @user_id)
+    @requests_received = []
+    @hostslistings.each do |listing|
+      @requests_received_per_listing = Request.where(listing_id: listing.id) if Request.where(listing_id: listing.id) != nil
+      @requests_received_per_listing.each do |request|
+        @requests_received << request
+      end
+    end
+    erb :'requests/index'
+  end
 
+  # RESERVATIONS
+  get '/users/:user_id/requests/:request_id' do
+    @user_id = params[:user_id]
+    @user = User.find(@user_id) if @user_id
+    @request_id = params[:request_id]
+    @request_ = Request.find(@request_id) if @request_id
+    @booking_date = @request_.start_date
+    @guest_id = @request_[:user_id]
+    @guest = User.find(@guest_id) if @guest_id
+    @listing_id = @request_[:listing_id]
+    @listing = Listing.find(@listing_id) if @listing_id
+
+    erb :'reservations/new'
+  end
+
+  post '/users/:user_id/requests/:request_id/decline' do # decline request
+    @user_id = params[:user_id]
+    @user = User.find(@user_id) if @user_id
+    @request_id = params[:request_id]
+    @request_ = Request.find(@request_id) if @request_id
+    @request_.approved = false
+    @request_.save
+
+    request = Request.find(@request_id)
+    @user_guest = User.find(request.user_id)
+
+    email = EmailSender.new #email works for guest
+    email.request_denied(@user_guest.first_name, @user_guest.email)
+
+    # text = TextSender.new
+    # text.request_denied
+
+
+  end
+
+  post '/users/:user_id/requests/:request_id/approve' do  # accepted request
+    @user_id = params[:user_id]         #host
+    @user = User.find(@user_id) if @user_id
+    @request_id = params[:request_id]
+    @request_ = Request.find(@request_id) if @request_id
+    @request_.approved = true
+    @request_.save
+    Reservation.create(
+      start_date: @request_.start_date,
+      request_id: @request_.id
+    )
+
+    email = EmailSender.new #email works for host
+    email.request_accepted_by_host(@user.first_name, @user.email)
+
+
+    request = Request.find(@request_id)
+    @user_guest = User.find(request.user_id)
+
+    email = EmailSender.new #email works for guest
+    email.request_accepted_for_guest(@user_guest.first_name, @user_guest.email)
+  end
+
+  get '/*' do
+    redirect '/index'
+  end
+
+  # check for session method to call in erb 
+  def user_is_logged_in?
+    !!session[:id]
+  end
+
+  run! if app_file == $PROGRAM_NAME
 end

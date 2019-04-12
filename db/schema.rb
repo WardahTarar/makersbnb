@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_09_145800) do
+ActiveRecord::Schema.define(version: 2019_04_10_180300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,12 @@ ActiveRecord::Schema.define(version: 2019_04_09_145800) do
     t.index ["request_id"], name: "index_reservations_on_request_id"
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.string "stripe_billing_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -73,6 +79,6 @@ ActiveRecord::Schema.define(version: 2019_04_09_145800) do
   add_foreign_key "availability", "listings"
   add_foreign_key "listings", "users"
   add_foreign_key "requests", "listings"
-  add_foreign_key "requests", "users"
   add_foreign_key "reservations", "requests"
+  add_foreign_key "transactions", "users"
 end
