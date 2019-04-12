@@ -59,15 +59,8 @@ class Makersbnb < Sinatra::Base
 
     session[:id] = user[:id]
 
-<<<<<<< HEAD
-    email = EmailSender.new
+    email = EmailSender.new             #email works for signup
     email.sign_up(params[:firstName], params[:email])
-=======
-    if params[:email]
-      email = EmailSender.new
-      email.sign_up(params[:firstName], params[:email])
-    end
->>>>>>> master
 
     redirect '/index'
   end
@@ -123,9 +116,6 @@ class Makersbnb < Sinatra::Base
   # FILTERING ROUTES END
 
   post '/listings/new' do
-    @user = User.find(session[:id]) if session[:id]
-    email = EmailSender.new
-    # p @user.email
 
     listing = Listing.create(
       name: params[:name],
@@ -138,7 +128,9 @@ class Makersbnb < Sinatra::Base
       description: params[:description]
       )
 
-      email.new_listing(@user.first_name, @user.email)
+      @user = User.find(session[:id]) if session[:id]
+      email = EmailSender.new                           
+      email.new_listing(@user.first_name, @user.email)    #email works for host
 
     redirect '/index'
   end
@@ -171,15 +163,14 @@ class Makersbnb < Sinatra::Base
       user_id: @user_id
     )
     email = EmailSender.new
-    email.request_made_by_guest(@user.first_name, @user.email) #works
+    email.request_made_by_guest(@user.first_name, @user.email) #email works for guest
+
 
     listing = Listing.find(@listing_id)
-    listing.user_id
     @user_host = User.find(listing.user_id)
 
-
     email = EmailSender.new
-    email.request_received_by_host(@user_host.first_name, @user_host.email) #needs testing with another email id
+    email.request_received_by_host(@user_host.first_name, @user_host.email) #email works for host
 
     redirect '/index'
   end
@@ -240,25 +231,21 @@ class Makersbnb < Sinatra::Base
     @request_ = Request.find(@request_id) if @request_id
     @request_.approved = false
     @request_.save
-<<<<<<< HEAD
 
-    p @user_id
-    p @user_id.first_name
-    p @user_id.email
+    request = Request.find(@request_id)
+    @user_guest = User.find(request.user_id)
 
-    email = EmailSender.new
-    email.request_denied(@user_id.first_name, @user_id.email)
+    email = EmailSender.new #email works for guest
+    email.request_denied(@user_guest.first_name, @user_guest.email)
 
-    text = TextSender.new
-    text.request_denied
+    # text = TextSender.new
+    # text.request_denied
 
 
-=======
->>>>>>> master
   end
 
   post '/users/:user_id/requests/:request_id/approve' do  # accepted request
-    @user_id = params[:user_id]
+    @user_id = params[:user_id]         #host
     @user = User.find(@user_id) if @user_id
     @request_id = params[:request_id]
     @request_ = Request.find(@request_id) if @request_id
@@ -268,6 +255,16 @@ class Makersbnb < Sinatra::Base
       start_date: @request_.start_date,
       request_id: @request_.id
     )
+
+    email = EmailSender.new #email works for host
+    email.request_accepted_by_host(@user.first_name, @user.email)
+
+
+    request = Request.find(@request_id)
+    @user_guest = User.find(request.user_id)
+
+    email = EmailSender.new #email works for guest
+    email.request_accepted_for_guest(@user_guest.first_name, @user_guest.email)
   end
 
   get '/*' do
