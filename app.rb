@@ -59,10 +59,10 @@ class Makersbnb < Sinatra::Base
 
     session[:id] = user[:id]
 
-    # if params[:email]
-    #   email = EmailSender.new
-    #   email.sign_up(params[:firstName], params[:email])
-    # end
+    if params[:email]
+      email = EmailSender.new
+      email.sign_up(params[:firstName], params[:email])
+    end
 
     redirect '/index'
   end
@@ -216,9 +216,6 @@ class Makersbnb < Sinatra::Base
     @request_ = Request.find(@request_id) if @request_id
     @request_.approved = false
     @request_.save
-
-    text = TextSender.new
-    text.request_denied
   end
 
   post '/users/:user_id/requests/:request_id/approve' do
@@ -232,9 +229,6 @@ class Makersbnb < Sinatra::Base
       start_date: @request_.start_date,
       request_id: @request_.id
     )
-
-    # text = TextSender.new
-    # text.request_accepted
   end
 
   get '/*' do
