@@ -12,7 +12,6 @@ body {
   background: #afafaf6b;
   font-family: "Titillium Web", sans-serif;
 }
-
 a {
   text-decoration: none;
   color: #1ab188;
@@ -21,7 +20,6 @@ a {
 a:hover {
   color: #179b77;
 }
-
 .form {
   background: white;
   padding: 40px;
@@ -30,7 +28,6 @@ a:hover {
   border-radius: 4px;
   box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 }
-
 .tab-group {
   list-style: none;
   padding: 0;
@@ -62,7 +59,6 @@ a:hover {
   background: #1ab188;
   color: #ffffff;
 }
-
 .tab-content > div:last-child {
   display: none;
 }
@@ -73,15 +69,15 @@ h1 {
   font-weight: 300;
   margin: 0 0 40px;
 }
-
 p {
   text-align: center;
+
   color: gray;
   margin: 0 0 40px;
 }
-
 label {
   position: absolute;
+
   transform: translateY(6px);
   left: 13px;
   color: gray;
@@ -94,7 +90,6 @@ label .req {
   margin: 2px;
   color: #1ab188;
 }
-
 label.active {
   transform: translateY(50px);
   left: 2px;
@@ -103,7 +98,6 @@ label.active {
 label.active .req {
   opacity: 0;
 }
-
 label.highlight {
   color: #ffffff;
 }
@@ -127,17 +121,15 @@ textarea:focus {
   outline: 0;
   border-color: rgb(255, 90, 95);
 }
-
 textarea {
   border: 2px solid #a0b3b0;
   resize: vertical;
 }
-
 .field-wrap {
   position: relative;
+
   margin-bottom: 40px;
 }
-
 .calendar-wrap {
   margin-bottom: 40px;
   position: relative;
@@ -145,7 +137,6 @@ textarea {
   margin-left: auto;
   margin-right: auto;
 }
-
 .top-row:after {
   content: "";
   display: table;
@@ -159,7 +150,6 @@ textarea {
 .top-row > div:last-child {
   margin: 0;
 }
-
 .button {
   border: 0;
   outline: none;
@@ -167,7 +157,6 @@ textarea {
   padding: 15px 0;
   font-size: 1.5rem;
   font-weight: 600;
-
   letter-spacing: 0.1em;
   background: rgb(255, 90, 95);
   color: #ffffff;
@@ -178,17 +167,14 @@ textarea {
 .button:focus {
   background: rgb(255, 90, 95);
 }
-
 .button-block {
   display: block;
   width: 100%;
 }
-
 .forgot {
   margin-top: -20px;
   text-align: right;
 }
-
 /* #welcomeMessage {
 
 } */
