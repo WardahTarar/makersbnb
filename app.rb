@@ -23,7 +23,7 @@ class Makersbnb < Sinatra::Base
   enable :sessions
 
   # Route for creating fake data
-  get '/add_fake_date' do
+  get '/add_fake_data' do
     createFakeListing
     redirect '/index'
   end
@@ -77,6 +77,7 @@ class Makersbnb < Sinatra::Base
 
     listings.map { |listing| listing['available_start_date'] = listing['available_start_date'].strftime('%d/%m/%Y') }
     listings.map { |listing| listing['available_end_date'] = listing['available_end_date'].strftime('%d/%m/%Y') }
+    listings.map { |listing| listing['updated_at'] = listing['updated_at'].strftime('%d/%m/%Y - %H:%M:%S') }
 
     listings.to_json
   end
@@ -269,6 +270,11 @@ class Makersbnb < Sinatra::Base
 
   get '/*' do
     redirect '/index'
+  end
+
+  # check for session method to call in erb 
+  def user_is_logged_in?
+    !!session[:id]
   end
 
   run! if app_file == $PROGRAM_NAME
