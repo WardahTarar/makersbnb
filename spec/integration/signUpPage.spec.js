@@ -1,14 +1,6 @@
 var Browser = require("zombie");
 var assert = require("assert");
 
-describe("contact page", function() {
-  it("should show a sign up form");
-  it("should refuse empty submissions");
-  it("should refuse partial submissions");
-  it("should refuse invalid emails");
-  it("should accept complete submissions");
-});
-
 describe("Sign up", function() {
   before(function() {
     this.browser = new Browser({ site: "http://localhost:9292" });

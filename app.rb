@@ -56,11 +56,18 @@ class Makersbnb < Sinatra::Base
       email: params[:email],
       password_digest: encrypted_password
     )
-  
+
     session[:id] = user[:id]
 
+<<<<<<< HEAD
     email = EmailSender.new
     email.sign_up(params[:firstName], params[:email])
+=======
+    if params[:email]
+      email = EmailSender.new
+      email.sign_up(params[:firstName], params[:email])
+    end
+>>>>>>> master
 
     redirect '/index'
   end
@@ -233,6 +240,7 @@ class Makersbnb < Sinatra::Base
     @request_ = Request.find(@request_id) if @request_id
     @request_.approved = false
     @request_.save
+<<<<<<< HEAD
 
     p @user_id
     p @user_id.first_name
@@ -245,6 +253,8 @@ class Makersbnb < Sinatra::Base
     text.request_denied
 
 
+=======
+>>>>>>> master
   end
 
   post '/users/:user_id/requests/:request_id/approve' do  # accepted request
@@ -258,9 +268,6 @@ class Makersbnb < Sinatra::Base
       start_date: @request_.start_date,
       request_id: @request_.id
     )
-
-    text = TextSender.new
-    text.request_accepted
   end
 
   get '/*' do
