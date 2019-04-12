@@ -59,10 +59,10 @@ class Makersbnb < Sinatra::Base
 
     session[:id] = user[:id]
 
-    # if params[:email]
-    #   email = EmailSender.new
-    #   email.sign_up(params[:firstName], params[:email])
-    # end
+    if params[:email]
+      email = EmailSender.new
+      email.sign_up(params[:firstName], params[:email])
+    end
 
     redirect '/index'
   end
