@@ -1,5 +1,5 @@
 module.exports = {
-  "Host can approve a request": function(browser) {
+  "Host can decline a request": function(browser) {
     browser
     // login procedure
     .url("localhost:9292/")
@@ -13,13 +13,13 @@ module.exports = {
     .click("#loginSubmit")
     .waitForElementVisible("#personalMess")
     .assert.containsText("#personalMess", "Welcome John")
-
-    // approval procedure
+    
+    // decline procedure
     .url("http://localhost:9292/users/1/requests/1")
-    .waitForElementPresent('#approve',20000)
+    .waitForElementPresent('#decline',20000)
     .assert.containsText("#requestMessage", "requested your place")
     .assert.containsText("#listingLocation", "This space is in")
-    .click("#approve")
+    .click("#decline")
     .end();
   }
 };

@@ -23,7 +23,7 @@ class Makersbnb < Sinatra::Base
   enable :sessions
 
   # Route for creating fake data
-  get '/add_fake_date' do
+  get '/add_fake_data' do
     createFakeListing
     redirect '/index'
   end
