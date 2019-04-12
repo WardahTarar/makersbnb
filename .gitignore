@@ -7,3 +7,4 @@ sendgrid.env
 .nyc_output
 /coverage
 package-lock.json
+makersbnb.code-workspace
