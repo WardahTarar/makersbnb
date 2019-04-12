@@ -236,5 +236,10 @@ class Makersbnb < Sinatra::Base
     redirect '/index'
   end
 
+  # check for session method to call in erb 
+  def user_is_logged_in?
+    !!session[:id]
+  end
+
   run! if app_file == $PROGRAM_NAME
 end

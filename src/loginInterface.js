@@ -32,7 +32,7 @@ function checkUserInput(email, password) {
       password: password
     },
     function() {
-      window.location.replace("/index");
+      window.location.href=window.location.href;
     }
   );
 }
