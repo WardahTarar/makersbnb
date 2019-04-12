@@ -8,18 +8,17 @@
     />
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    <link rel="icon" href="/images/favicon.ico">
     <title>Makers BnB</title>
 </head>
 
-<body>
+<body >
 
+  <%# Navigation bar %>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
+<nav class="navbar navbar-light bg-light justify-content-between">
+  
 
-        <% if session[:id] %>
+   <% if session[:id] %>
         <% @user = User.find(session[:id]) if session[:id] %>
 
         <span class = "float-left">
@@ -53,10 +52,10 @@
         </h2>
         <% end%>
 
-      </div>
+</nav>
 
-    </div>
-  </div>
+<%# Navigation bar %>
+
   <!-- Modal for Log In -->
   <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
@@ -134,7 +133,7 @@
 
   <%# Search form %>
 <div class="form" id='form'>
-  <h3>Book a space</h3>
+  <h3 id = "bookSpaceTitle" >Book a space</h3>
 
   <div class="intend-dates">
     <p>Your travel dates:</p>
