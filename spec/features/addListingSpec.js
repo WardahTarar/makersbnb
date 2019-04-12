@@ -1,13 +1,16 @@
 module.exports = {
   "User can sign up": function(browser) {
     browser
-    // signup
+      // signup
       .url("localhost:9292/")
-      .click("#signup")  
-      .waitForElementPresent('#modalRegisterForm',20000, 'Some message here to show while running test')
+      .click("#signup")
+      .waitForElementPresent(
+        "#modalRegisterForm",
+        20000,
+        "Some message here to show while running test"
+      )
       .pause(1000)
-      .execute(function(){
-      })
+      .execute(function() {})
 
       .setValue("input[name=firstName]", "John")
       .setValue("input[name=lastName]", "Snow")
@@ -15,7 +18,11 @@ module.exports = {
       .setValue("input[name=password]", "12345")
       .click("#submitCreate")
 
-      .waitForElementPresent('#listing',20000, 'Some message here to show while running test')
+      .waitForElementPresent(
+        "#listing",
+        20000,
+        "Some message here to show while running test"
+      )
       .click("#listing")
       .setValue("input[name=name]", "3 bed flat")
       .setValue("input[name=location]", "Mayfair")
@@ -24,6 +31,6 @@ module.exports = {
       .setValue("input[name=startDate]", "13/04/2019")
       .setValue("input[name=endDate]", "15/04/2019")
       .setValue("input[name=price]", "100")
-      .click("#submitListing")
+      .click("#submitListing");
   }
 };
