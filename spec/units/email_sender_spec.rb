@@ -22,11 +22,11 @@ describe EmailSender do
   end
 
   it 'when host confirms the booking, they receive an email' do
-    expect(subject.request_confirmed('Host', "host_email@test.com")).to eq('Hi, Host! You have accepted booking request.')
+    expect(subject.request_accepted_by_host('Host', "host_email@test.com")).to eq('Hi, Host! You have accepted booking request.')
   end
 
   it 'when host confirms the booking, the user receives an email' do
-    expect(subject.request_accepted('Guest', "guest_email@test.com")).to eq('Hi, Guest! Your booking request has been accepted.')
+    expect(subject.request_accepted_for_guest('Guest', "guest_email@test.com")).to eq('Hi, Guest! Your booking request has been accepted.')
   end
 
   it 'when host denies the booking, the user receives an email' do

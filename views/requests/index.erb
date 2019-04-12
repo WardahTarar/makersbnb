@@ -24,7 +24,7 @@
                   <h5 class="card-title"><%= request.listing.name %></h5>
                   <ul class="list-group list-group-flush">
                       <li class="list-group-item"> <%= request.start_date.strftime("%d/%m/%Y") %> </li>
-                      <li class="list-group-item">Status: <%= request.approved ? "Confirmed" : "Pending" %> </li>
+                      <li class="list-group-item">Status: <%= request.approved.nil? ? "Pending" : (request.approved ? "Accepted" : "Declined") %> </li>
                   </ul>
               </div>
           </div>

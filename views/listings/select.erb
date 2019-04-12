@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Is this the space for you?</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
   </head>
 
   <body>
@@ -18,15 +19,22 @@
 
       <p>When would you like to book?</p>
 
-      <div class="calendar-wrap" size="100px">
+      <div class="calendar-wrap" id="calendar" size="100px">
         <input type="input" id="startDate" >
       </div>
 
-      <button type="button" id="request" name="request" class="button button-block">
-        Request
-      </button>
+      <% if user_is_logged_in? %>
+        <button type="button" id="request" name="request" class="button button-block">
+          Request
+        </button>
+      <% else %>
+        <button style="color:gray;" type="button" id="notLoggedIn" name="fakeButton" class="button button-block">
+          You are not logged in!
+        </button>
+      <% end %>  
 
-      <a href="/index" class="card-link">Go Back </a>
+
+      <a href="/index" class="card-link">Go Back</a>
 
       <input type="hidden" id="listingID" value="<%=@listing_id%>">
       <input type="hidden" id="listingStartDate" value="<%=@start_date%>">
