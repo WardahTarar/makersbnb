@@ -164,19 +164,15 @@ class Makersbnb < Sinatra::Base
       user_id: @user_id
     )
     email = EmailSender.new
-    email.request_made_by_guest(@user.first_name, @user.email)
+    email.request_made_by_guest(@user.first_name, @user.email) #works
 
     listing = Listing.find(@listing_id)
     listing.user_id
     @user_host = User.find(listing.user_id)
 
-    # p Request.find(@listing_id)
-    # @user_host = Request.find(@listing_id.user_id)
-    # p @user_host.first_name
-    # p @user_host.email
 
     email = EmailSender.new
-    email.request_received_by_host(@user_host.first_name, @user_host.email)
+    email.request_received_by_host(@user_host.first_name, @user_host.email) #needs testing with another email id
 
     redirect '/index'
   end
@@ -238,8 +234,17 @@ class Makersbnb < Sinatra::Base
     @request_.approved = false
     @request_.save
 
+    p @user_id
+    p @user_id.first_name
+    p @user_id.email
+
+    email = EmailSender.new
+    email.request_denied(@user_id.first_name, @user_id.email)
+
     text = TextSender.new
     text.request_denied
+
+
   end
 
   post '/users/:user_id/requests/:request_id/approve' do  # accepted request
