@@ -31,13 +31,13 @@ class EmailSender
     "Hi, #{first_name}! Your request has been submitted."
   end
 
-  def request_confirmed(first_name, email)
-    request_confirmed_helper(first_name, email)
+  def request_accepted_by_host(first_name,email)
+    request_confirmed_helper(first_name,email)
     "Hi, #{first_name}! You have accepted booking request."
   end
 
-  def request_accepted(first_name, email)
-    request_accepted_helper(first_name, email)
+  def request_accepted_for_guest(first_name,email)
+    request_accepted_helper(first_name,email)
     "Hi, #{first_name}! Your booking request has been accepted."
   end
 
