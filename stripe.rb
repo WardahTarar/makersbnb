@@ -21,6 +21,7 @@ def charge(amount, email, name, listing_desc)
 end
 
 # find billing based on stripe charge id
+# pass in db value
 def findBilling(id)
   retreive = Stripe::Charge.retrieve(id)
   billingObj = {

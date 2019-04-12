@@ -138,11 +138,15 @@ class Makersbnb < Sinatra::Base;
       Transactions.create(stripe_billing_id: billing[:id], user_id: user.id)
       p "entry created"
     end
+  end
 
-  get '/payments/:user/all'
+
+  get '/payments/all'
+    @user = User.find(session[:id]) if session[:id]
     # billing search function - returns json object
     # place in get route in future - need to store billing into database
     # transactions table with billing ids and associated user id
+    billingSearch = Transactions.execute("SELECT stripe_billing_id FROM transactions WHERE user_id = #{@user.id}")
     list = findBilling() 
     
   end
