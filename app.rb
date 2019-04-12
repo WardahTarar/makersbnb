@@ -7,7 +7,9 @@ require './src/availability.rb'
 require 'bcrypt'
 require 'json'
 require './src/email_sender.rb'
+require './src/text_sender.rb'
 # current_dir = Dir.pwd
+
 current_dir = Dir.pwd
 
 Dir["#{current_dir}/models/*.rb"].each { |file| require file }
@@ -20,8 +22,14 @@ class Makersbnb < Sinatra::Base
 
   enable :sessions
 
+  # Route for creating fake data
+  get '/add_fake_date' do
+    createFakeListing
+    redirect '/index'
+  end
+
+  # Bad routes redirect to index
   get '/' do
-    # createFakeListing
     redirect '/index'
   end
 
@@ -41,15 +49,20 @@ class Makersbnb < Sinatra::Base
   # SIGN UP ROUTE
   post '/users/new' do
     encrypted_password = BCrypt::Password.create(params[:password])
+
     user = User.create(
       first_name: params[:firstName],
       last_name: params[:lastName],
       email: params[:email],
       password_digest: encrypted_password
     )
-    email = EmailSender.new
-    email.sign_up(params[:firstName], params[:email])
+  
     session[:id] = user[:id]
+
+    # if params[:email]
+    #   email = EmailSender.new
+    #   email.sign_up(params[:firstName], params[:email])
+    # end
 
     redirect '/index'
   end
@@ -169,7 +182,6 @@ class Makersbnb < Sinatra::Base
     # p user.first_name
     if BCrypt::Password.new(user[:password_digest]) == params[:password]
       session[:id] = user[:id]
-
       redirect '/index'
     else
       redirect '/index'
@@ -184,19 +196,19 @@ class Makersbnb < Sinatra::Base
 
   # Alex
   get '/users/:user_id/requests' do
-  #shows all requests for the user
-  @user_id = params[:user_id]
-  @user = User.find(@user_id) if @user_id
-  @requests_submitted = Request.where(user_id: params[:user_id])
-  @hostslistings = Listing.where(user_id: @user_id)
-  @requests_received =[]
-  @hostslistings.each do |listing|
-    @requests_received_per_listing = Request.where(listing_id: listing.id) if Request.where(listing_id: listing.id) != nil
-    @requests_received_per_listing.each do |request|
-    @requests_received << request
+    # shows all requests for the user
+    @user_id = params[:user_id]
+    @user = User.find(@user_id) if @user_id
+    @requests_submitted = Request.where(user_id: params[:user_id])
+    @hostslistings = Listing.where(user_id: @user_id)
+    @requests_received = []
+    @hostslistings.each do |listing|
+      @requests_received_per_listing = Request.where(listing_id: listing.id) if Request.where(listing_id: listing.id) != nil
+      @requests_received_per_listing.each do |request|
+        @requests_received << request
+      end
     end
-  end
-  erb :'requests/index'
+    erb :'requests/index'
   end
 
   # RESERVATIONS
@@ -208,9 +220,6 @@ class Makersbnb < Sinatra::Base
     @booking_date = @request_.start_date
     @guest_id = @request_[:user_id]
     @guest = User.find(@guest_id) if @guest_id
-    p "XXXXXXXXXXXXXXX"
-    p @guest.first_name
-    p "XXXXXXXXXXXXXXX"
     @listing_id = @request_[:listing_id]
     @listing = Listing.find(@listing_id) if @listing_id
 
@@ -224,6 +233,9 @@ class Makersbnb < Sinatra::Base
     @request_ = Request.find(@request_id) if @request_id
     @request_.approved = false
     @request_.save
+
+    text = TextSender.new
+    text.request_denied
   end
 
   post '/users/:user_id/requests/:request_id/approve' do
@@ -233,6 +245,17 @@ class Makersbnb < Sinatra::Base
     @request_ = Request.find(@request_id) if @request_id
     @request_.approved = true
     @request_.save
+    Reservation.create(
+      start_date: @request_.start_date,
+      request_id: @request_.id
+    )
+
+    text = TextSender.new
+    text.request_accepted
+  end
+
+  get '/*' do
+    redirect '/index'
   end
 
   run! if app_file == $PROGRAM_NAME

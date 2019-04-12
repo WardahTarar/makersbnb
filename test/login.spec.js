@@ -1,13 +1,6 @@
 var Browser = require("zombie");
 var assert = require("assert");
 
-describe("contact page", function() {
-  it("should show a login form - Done");
-  it("should refuse empty submissions - Done");
-  it("should refuse invalid emails -Done ");
-  it("should accept complete submissions - Done");
-});
-
 describe("Log in", function() {
   this.timeout(15000);
   before(function() {
