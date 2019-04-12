@@ -59,10 +59,8 @@ class Makersbnb < Sinatra::Base
   
     session[:id] = user[:id]
 
-    # if params[:email]
-    #   email = EmailSender.new
-    #   email.sign_up(params[:firstName], params[:email])
-    # end
+    email = EmailSender.new
+    email.sign_up(params[:firstName], params[:email])
 
     redirect '/index'
   end
@@ -168,8 +166,14 @@ class Makersbnb < Sinatra::Base
     email = EmailSender.new
     email.request_made_by_guest(@user.first_name, @user.email)
 
-    p Listing.find(@listing_id)
-    @user_host = Listing.find(@listing_id.user_id)
+    listing = Listing.find(@listing_id)
+    listing.user_id
+    @user_host = User.find(listing.user_id)
+
+    # p Request.find(@listing_id)
+    # @user_host = Request.find(@listing_id.user_id)
+    # p @user_host.first_name
+    # p @user_host.email
 
     email = EmailSender.new
     email.request_received_by_host(@user_host.first_name, @user_host.email)
@@ -226,7 +230,7 @@ class Makersbnb < Sinatra::Base
     erb :'reservations/new'
   end
 
-  post '/users/:user_id/requests/:request_id/decline' do
+  post '/users/:user_id/requests/:request_id/decline' do # decline request
     @user_id = params[:user_id]
     @user = User.find(@user_id) if @user_id
     @request_id = params[:request_id]
@@ -238,7 +242,7 @@ class Makersbnb < Sinatra::Base
     text.request_denied
   end
 
-  post '/users/:user_id/requests/:request_id/approve' do
+  post '/users/:user_id/requests/:request_id/approve' do  # accepted request
     @user_id = params[:user_id]
     @user = User.find(@user_id) if @user_id
     @request_id = params[:request_id]
