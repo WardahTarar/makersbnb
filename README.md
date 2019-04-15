@@ -16,7 +16,7 @@ Our apporach was to create a MVP in 2 days, where it satisfies the basic require
 **Part 1**
 After translation of user stories, we modeled the app to a database relation model, where data flows between models according to user stories. 
 
-### modeling
+### Modeling
 We had the following models and funcitons:
 
 User- which can be a host or guest
@@ -138,7 +138,7 @@ Although we were very quick and accomplished a lot in setting up the app infrast
 This was a major issue we had and we decided to introduce Javascript, rather than focusing on just Ruby because it will ease our way into later projects and its better to get familiarized early on. It would also make the app abit more 'different'. Although this did cause some issue, such as not sure how to do a filter in javascript for dates available, we overcame this issue by reading documentation on ajax requests, and consulting more experienced members in the team. We were able to create mostly front end features in javascript in the end.
 
 
-## mistakes I made
+## Mistakes I made
 ### TESTING nightwatch
 - I needed to select the right id
 
