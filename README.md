@@ -1,4 +1,4 @@
-Makersbnb
+# Makersbnb
 ------
 # Task (high level)
 In this project, we created a airbnb clone, where a user can sign up and interact with the app as a traveler or host. As a traveler, user can book a listing, and as a host, user can offer a listing to other travelers.
