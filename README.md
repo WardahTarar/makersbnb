@@ -17,6 +17,8 @@ Our apporach was to create a MVP in 2 days, where it satisfies the basic require
 After translation of user stories, we modeled the app to a database relation model, where data flows between models according to user stories. 
 
 ### Modeling
+
+![](images/Screenshot 2019-05-01 17.39.34.png)
 We had the following models and funcitons:
 
 User- which can be a host or guest

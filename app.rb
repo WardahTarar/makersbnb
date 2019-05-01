@@ -85,7 +85,7 @@ class Makersbnb < Sinatra::Base
   get '/listings/new' do
     # Not needed as @user, if there is a session[:id], it is assigned in the layout
     @user = User.find(session[:id]) if session[:id]
-    p @user
+    # p @user
     erb :'/listings/new'
   end
 
