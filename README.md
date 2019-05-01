@@ -18,7 +18,7 @@ After translation of user stories, we modeled the app to a database relation mod
 
 ### Modeling
 
-![](images/Screenshot 2019-05-01 17.39.34.png)
+![](images/db.png)
 We had the following models and funcitons:
 
 User- which can be a host or guest
