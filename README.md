@@ -152,7 +152,7 @@ This was a major issue we had and we decided to introduce Javascript, rather tha
 We used new testing frameworks to feature test front end javascript part of the app. This was interesting and we quickly familiarized ourselves with the framework, which is similar to Capybara. This showed that we were adaptable and language agnostic.  
 
 
-# things to add/ amend later
+# Things to add/ amend later
 
 - make the folders abit cleaner
 - use of doubles in testing?
